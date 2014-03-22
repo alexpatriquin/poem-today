@@ -44,15 +44,17 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'figaro'
-
 gem 'pry'
 gem "binding_of_caller"
 group :development do
   gem "better_errors"
 end
 
+gem 'figaro'
 gem 'whenever'
+
 gem 'mandrill-api'
+gem 'forecast_io'
+gem 'geocoder'
 
 

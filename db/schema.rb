@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321163253) do
+ActiveRecord::Schema.define(version: 20140322143418) do
 
   create_table "poems", force: true do |t|
     t.string   "poet"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20140321163253) do
     t.integer  "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
 end
