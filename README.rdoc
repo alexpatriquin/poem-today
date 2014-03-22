@@ -1,0 +1,1 @@
+Poem Today is a daily email app that sends “the right poem to the right person on the right day”.
