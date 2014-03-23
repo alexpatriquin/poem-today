@@ -6,9 +6,9 @@
   <body>
     <h1>HERE IS YOUR POEM <%= @user.zipcode %></h1>
     <p>
-      <%= @poem.pluck(:title)[0] %>
-      <%= @poem.pluck(:poet)[0] %>
-      <%= @poem.pluck(:content)[0] %>
+      <%= @poem.title %>
+      <%= @poem.poet %>
+      <%= @poem.content %>
     </p>
     <p>
       To login to the site, just follow this link: <%= @url %>.

@@ -11,23 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322153949) do
+ActiveRecord::Schema.define(version: 20140322200556) do
 
   create_table "poems", force: true do |t|
     t.string   "poet"
     t.string   "title"
+    t.string   "first_line"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "user_poems", force: true do |t|
+    t.integer "user_id"
+    t.integer "poem_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.integer  "zipcode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

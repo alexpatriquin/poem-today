@@ -3,7 +3,7 @@ class PoemMailer < ActionMailer::Base
 
   def daily_email(user)
     @user = user
-    @poem = UserPoem.new(user).match_poem
+    @poem = PoemMatcher.new(user).match_poem
     @url  = 'http://poemtoday.com/'
     mail(to: @user.email, subject: 'Today\'s Poem')
   end

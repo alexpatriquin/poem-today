@@ -44,7 +44,13 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'pry'
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "pry"
+  gem "simplecov", "~> 0.7.1"
+end
+
 gem "binding_of_caller"
 group :development do
   gem "better_errors"
