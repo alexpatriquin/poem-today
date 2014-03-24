@@ -62,5 +62,6 @@ gem 'whenever'
 gem 'mandrill-api'
 gem 'forecast_io'
 gem 'geocoder'
+gem 'json'
 
 

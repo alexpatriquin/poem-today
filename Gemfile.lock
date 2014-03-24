@@ -173,6 +173,7 @@ DEPENDENCIES
   geocoder
   jbuilder (~> 1.2)
   jquery-rails
+  json
   mandrill-api
   pry
   rails (= 4.0.3)
