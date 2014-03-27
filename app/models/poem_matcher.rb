@@ -27,7 +27,12 @@ class PoemMatcher
 
   def score_by_forecast
     ForecastPoem.new(@user).build_collection.each do |poem_id|
-      @results[poem_id] += 20
+      if @results[poem_id]
+        @results[poem_id] += 20
+      else
+        @results[poem_id] = 0
+        @results[poem_id] += 20
+      end
     end
   end
 
@@ -68,6 +73,7 @@ end
 # otherwise, score for tweets, news and forecast in that order
 
 # match by first line in news and forecast
+# first line problems
 # match by subject
 
 # put language into a module

@@ -24,7 +24,7 @@ class ForecastPoem
   end
 
   def extract_forecast_keywords
-    @keywords = @summary.uniq.downcase.gsub(/’s|[^a-z\s]/,' ')
+    @keywords = @summary.downcase.gsub(/’s|[^a-z\s]/,' ')
                         .split.delete_if { |w| COMMON_WORDS.include?(w) }
   end
 

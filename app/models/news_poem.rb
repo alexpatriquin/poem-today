@@ -39,7 +39,7 @@ class NewsPoem
   def match_news_keywords_to_poems
     all_matches = []
     @keywords.each do |keyword|
-      keyword_matches = Poem.where("title LIKE :keyword", {keyword: "%[[:<:]]#{keyword}[[:>:]]%"}).pluck(:id)
+      keyword_matches = Poem.where("title LIKE :keyword", {keyword: "% #{keyword} %"}).pluck(:id)
       all_matches << keyword_matches if !keyword_matches.empty?
     end
     all_matches.flatten.uniq
