@@ -68,29 +68,6 @@ class PoemMatcher
 end
 
 
-# To Do
-# if it's a birthday or a holiday, return those poems only and pick at random
-# otherwise, score for tweets, news and forecast in that order
-
-# match by first line in news and forecast
-# first line problems
-# match by subject
-
-# put language into a module
-# common words and synonyms
-# https://github.com/roja/words
-# https://github.com/doches/rwordnet
-# https://github.com/yohasebe/engtagger
-
-# direct word match scores higher than synonym match
-
-    
-
-
-
-
-
-
 
 
 
