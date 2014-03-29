@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class NewsPoem
-  include ProcessKeywords
+  COMMON_WORDS = ["the", "a", "this", "what", "in", "very", "had", "he", "she", "it", "op-ed contributor", "our", "are", "out", "of", "an", "often", "period", "and"]
 
   def initialize(user)
     @user = user
@@ -33,12 +33,15 @@ class NewsPoem
   end
 
   def extract_article_keywords
-    @keywords = @summary.extract_keywords
+    @keywords = @summary.uniq.join(' ').downcase.gsub(/’s|[^a-z\s]/,' ').split.delete_if { |w| COMMON_WORDS.include?(w) }
   end
 
   def match_news_keywords_to_poems
     all_matches = []
-    @keywords.match_keywords
+    @keywords.each do |keyword|
+      keyword_matches = Poem.where("title ILIKE :keyword", {keyword: "% #{keyword} %"}).pluck(:id)
+    all_matches << keyword_matches if !keyword_matches.empty?
+  end
     all_matches.flatten.uniq
   end
 

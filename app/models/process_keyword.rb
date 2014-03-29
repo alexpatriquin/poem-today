@@ -1,4 +1,4 @@
-module ProcessKeywords
+class ProcessKeyword
 
   COMMON_WORDS = ["the", "a", "this", "what", "in", "very", "had", "he", "she", "it", "op-ed contributor", "our", "are", "out", "of", "an", "often", "period", "and"]
   
