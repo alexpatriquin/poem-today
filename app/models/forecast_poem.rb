@@ -54,11 +54,11 @@ class ForecastPoem
   def save_poems_to_results
     @keywords.each do |keyword|
       keyword.poems.each do |poem|
-        poem_hash                       = {}
-        poem_hash[:poem_id]             = poem[:id]
+        poem_hash                      = {}
+        poem_hash[:poem_id]            = poem[:id]
         poem_hash[:match_type]         = poem[:match_type]        
-        poem_hash[:keyword_text]        = keyword.keyword_text
-        poem_hash[:keyword_frequency]   = keyword.frequency
+        poem_hash[:keyword_text]       = keyword.keyword_text
+        poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = [:forecast]
         @results << poem_hash
       end

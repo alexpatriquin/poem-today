@@ -15,38 +15,42 @@ class PoemMatcher
     forecast_results = ForecastPoem.new(@user).build_collection
     @results         << PoemScorer.new.score_results(forecast_results)
 
-    # ensure_results
+    @results.flatten!
+    ensure_results
     save_top_result
   end
 
+  def ensure_results
+    #breaks without enough poems
+    ensure_not_empty
+    ensure_unique
+  end
 
+  def ensure_not_empty
+    if @results.empty?
+      poem_hash                      = {}
+      poem_hash[:poem_id]            = Poem.find(rand(1..Poem.count)).id
+      poem_hash[:match_type]         = [:random]        
+      poem_hash[:match_score]        = 0
+      @results << poem_hash
+      
+      ensure_unique
+    end
+  end
 
-
-
-  # def ensure_results
-  #   #breaks without enough poems
-  #   ensure_not_empty
-  #   ensure_unique
-  # end
-
-  # def ensure_not_empty
-  #   if RESULTS.empty?
-  #     random_poem_id = Poem.find(rand(1..Poem.count)).id
-  #     @results[random_poem_id] = 0
-  #     ensure_unique
-  #   end
-  # end
-
-  # def ensure_unique
-  #   @user_poem_history ||= UserPoem.where(:user_id => @user.id).pluck(:poem_id)
-  #   @results.keys.each do |poem_id|
-  #       @results.delete(poem_id) if @user_poem_history.include?(poem_id)
-  #   end
-  #   ensure_not_empty
-  # end
+  def ensure_unique
+    @user_poem_history ||= UserPoem.where(:user_id => @user.id).pluck(:poem_id)
+    @results.each do |result| 
+      binding.pry
+      @results.delete(result) if @user_poem_history.include?(result[:poem_id]) 
+    end
+    ensure_not_empty
+  end
 
   def save_top_result
-    top_result = @results.flatten.inject { |winning,result| winning[:match_score] > result[:match_score] ? winning : result }
+    top_result = @results.inject do |winning,result| 
+      winning[:match_score] > result[:match_score] ? winning : result 
+    end
 
     @user.user_poems.build(:poem_id             => top_result[:poem_id],
                            :match_score         => top_result[:match_score],

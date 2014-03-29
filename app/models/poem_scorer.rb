@@ -3,13 +3,13 @@ class PoemScorer
   def score_results(results)
     results.each do |result|
       result[:match_score] = 0
-      score_by_source(result)
+      score_by_keyword_source(result)
       score_by_match_type(result)
       score_by_frequency(result)
     end
   end
 
-  def score_by_source(result)
+  def score_by_keyword_source(result)
     case result[:keyword_source]
     when [:twitter]
       result[:match_score] += 60
@@ -32,8 +32,8 @@ class PoemScorer
   end
 
   def score_by_frequency(result)
-      frequency_score = (1000 - result[:keyword_frequency]) / 10
-      result[:match_score] += frequency_score
+    frequency_score = (1000 - result[:keyword_frequency]) / 10
+    result[:match_score] += frequency_score
   end
 
 end
