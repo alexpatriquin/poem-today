@@ -67,4 +67,6 @@ gem 'forecast_io'
 gem 'geocoder'
 gem 'json'
 
+gem 'pg_search'
+
 
