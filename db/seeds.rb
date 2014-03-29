@@ -8,7 +8,7 @@
 
 walk = Poem.new
 walk.poet = "Robert Frost"
-walk.title = "A Cloudy Walk"
+walk.title = "A Rain Cloudy Walk"
 walk.first_line = "When I go up through the mowing field,"
 walk.content = "When I go up through the mowing field,A0The headless aftermath,A0Smooth-laid like thatch with the heavy dew,A0Half closes the garden path.A0A0And when I come to the garden ground,A0The whirof sober birdsA0Up from the tangle of withered weedsA0Is sadder than any wordsA0"
 walk.save
@@ -21,7 +21,7 @@ dream.content = "In visions of the dark nightA0I have dreamed of joy departed-A0
 
 morning = Poem.new
 morning.poet = "Langston Hughes"
-morning.title = "Bad Morning Insurance"
+morning.title = "Bad Heavy Rain Insurance"
 morning.first_line = "Here I sit"
 morning.content = "Here I sitA0With my shoes mismated.A0Lawdy-mercy!A0I's frustrated!A0"
 

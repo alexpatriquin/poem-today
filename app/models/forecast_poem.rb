@@ -5,18 +5,17 @@ class ForecastPoem
   end
 
   def build_collection
-    KEYWORDS.clear
-
+    @results = []
     lat = @user.latitude
     long = @user.longitude
     call_forecastio_api(lat,long)
     parse_forecastio_api
 
-    extract_forecast_keywords
     add_to_keyword_collection
 
-    match_forecast_keywords_to_poems
+    match_keywords_to_poems
     save_poems_to_results
+    @results
   end
 
   def call_forecastio_api(lat,long)
@@ -24,17 +23,14 @@ class ForecastPoem
   end
 
  def parse_forecastio_api
-    @summary = @payload["daily"]["data"][0]["summary"]
-  end
-
-  def extract_forecast_keywords
-    @keywords = @summary.delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
+    @summary_words = @payload["daily"]["data"][0]["summary"].delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
   end
 
   def add_to_keyword_collection
-    @keywords.each do |keyword|
+    @keywords = []
+    @summary_words.each do |keyword|
       frequency = call_wordnik_api(keyword)
-      KEYWORDS << Keyword.new(keyword, frequency)
+      @keywords << Keyword.new(keyword, frequency) if frequency < 1000
     end 
   end
 
@@ -45,8 +41,8 @@ class ForecastPoem
     JSON.parse(response.body)["totalCount"]
   end
 
-  def match_forecast_keywords_to_poems  
-    KEYWORDS.each do |keyword|
+  def match_keywords_to_poems  
+    @keywords.each do |keyword|
       keyword.poems << Poem.search_by_subject(keyword.keyword_text).map    { |poem| { :id => poem.id, :match_type => [:subject] }}
       keyword.poems << Poem.search_by_title(keyword.keyword_text).map      { |poem| { :id => poem.id, :match_type => [:title] }}
       keyword.poems << Poem.search_by_first_line(keyword.keyword_text).map { |poem| { :id => poem.id, :match_type => [:first_line] }}
@@ -56,29 +52,17 @@ class ForecastPoem
   end
 
   def save_poems_to_results
-    KEYWORDS.each do |keyword|
+    @keywords.each do |keyword|
       keyword.poems.each do |poem|
-        poem_hash                     = {}
-        poem_hash[:poem_id]           = poem[:id]
-        poem_hash[:match_type]        = poem[:match_type]        
-        poem_hash[:keyword_text]      = keyword.keyword_text
-        poem_hash[:keyword_frequency] = keyword.frequency
-        poem_hash[:keyword_source]    = [:forecast]
-        RESULTS << poem_hash
+        poem_hash                       = {}
+        poem_hash[:poem_id]             = poem[:id]
+        poem_hash[:match_type]         = poem[:match_type]        
+        poem_hash[:keyword_text]        = keyword.keyword_text
+        poem_hash[:keyword_frequency]   = keyword.frequency
+        poem_hash[:keyword_source]     = [:forecast]
+        @results << poem_hash
       end
     end
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-

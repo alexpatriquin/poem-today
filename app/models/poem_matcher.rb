@@ -1,22 +1,20 @@
 class PoemMatcher
 
-  RESULTS = []
-
   def initialize(user)
     @user = user    
   end
 
   def match_poem
-    RESULTS.clear
     
     # special_occasions, otherwise:
     # score_by_tweets
     
     # NewsPoem.new(@user).build_collection
-    ForecastPoem.new(@user).build_collection
+    forecast_results = ForecastPoem.new(@user).build_collection
+    @results = PoemScorer.new.score_results(forecast_results)
 
     # ensure_results
-    # save_top_result
+    save_top_result
   end
 
   # def ensure_results
@@ -41,12 +39,18 @@ class PoemMatcher
   #   ensure_not_empty
   # end
 
-  # def save_top_result
-  #   top_result = @results.sort_by { |poem_id, score| score }.reverse.first
-  #   @user.user_poems.build(:poem_id => top_result[0], :match_score => top_result[1])
-  #   @user.save
-  #   Poem.find(top_result[0])
-  # end
+  def save_top_result
+    top_result = @results.inject { |winning,result| winning[:match_score] > result[:match_score] ? winning : result }
+
+    @user.user_poems.build(:poem_id             => top_result[:poem_id],
+                           :match_score         => top_result[:match_score],
+                           :keyword_text        => top_result[:keyword_text],
+                           :keyword_frequency   => top_result[:keyword_frequency])
+                           # :keyword_source     => top_result[:keyword_source]
+                           # :keyword_match_type => top_result[:keyword_match_type]
+    @user.save
+    Poem.find(top_result[:poem_id])
+  end
 
 end
 

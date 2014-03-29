@@ -6,8 +6,8 @@ class UserPoems < ActiveRecord::Migration
       t.integer :match_score
       t.string  :keyword_text
       t.integer :keyword_frequency
-      t.array   :keyword_sources
-      t.array   :keyword_match_types
+      # t.array   :keyword_source
+      # t.array   :keyword_match_type
     end  
   end
 end
