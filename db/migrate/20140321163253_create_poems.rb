@@ -4,7 +4,10 @@ class CreatePoems < ActiveRecord::Migration
       t.string :poet
       t.string :title
       t.string :first_line
-      t.text :content
+      t.text   :content
+      t.string :occasion
+      t.string :holiday
+      t.string :subject
 
       t.timestamps
     end

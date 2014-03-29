@@ -68,5 +68,6 @@ gem 'geocoder'
 gem 'json'
 
 gem 'pg_search'
+gem 'wordnik'
 
 

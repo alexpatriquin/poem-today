@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20140322200556) do
     t.string   "title"
     t.string   "first_line"
     t.text     "content"
+    t.string   "occasion"
+    t.string   "holiday"
+    t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140322200556) do
     t.integer  "zipcode"
     t.float    "latitude"
     t.float    "longitude"
+    t.date     "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
