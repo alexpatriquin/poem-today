@@ -1,0 +1,2 @@
+class KeywordScorer
+end
