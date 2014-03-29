@@ -1,21 +1,27 @@
 class PoemMatcher
 
+  Holidays = []
+
   def initialize(user)
     @user = user    
   end
 
   def match_poem
-    
-    # special_occasions, otherwise:
-    # score_by_tweets
-    
-    # NewsPoem.new(@user).build_collection
+    @results = []
+
+    news_results     = NewsPoem.new(@user).build_collection
+    @results         << PoemScorer.new.score_results(news_results)
+
     forecast_results = ForecastPoem.new(@user).build_collection
-    @results = PoemScorer.new.score_results(forecast_results)
+    @results         << PoemScorer.new.score_results(forecast_results)
 
     # ensure_results
     save_top_result
   end
+
+
+
+
 
   # def ensure_results
   #   #breaks without enough poems
@@ -40,7 +46,7 @@ class PoemMatcher
   # end
 
   def save_top_result
-    top_result = @results.inject { |winning,result| winning[:match_score] > result[:match_score] ? winning : result }
+    top_result = @results.flatten.inject { |winning,result| winning[:match_score] > result[:match_score] ? winning : result }
 
     @user.user_poems.build(:poem_id             => top_result[:poem_id],
                            :match_score         => top_result[:match_score],

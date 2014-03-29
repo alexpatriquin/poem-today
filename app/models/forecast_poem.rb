@@ -6,13 +6,13 @@ class ForecastPoem
 
   def build_collection
     @results = []
+    
     lat = @user.latitude
     long = @user.longitude
     call_forecastio_api(lat,long)
     parse_forecastio_api
 
     add_to_keyword_collection
-
     match_keywords_to_poems
     save_poems_to_results
     @results

@@ -28,10 +28,12 @@ morning.content = "Here I sitA0With my shoes mismated.A0Lawdy-mercy!A0I's frustr
 alex = User.new
 alex.email = "alexpatrquin@gmail.com"
 alex.zipcode = 10009
+alex.birthday = "1999-03-30"
 
 yogasampler = User.new
 yogasampler.email = "alex@yogasampler.org"
 yogasampler.zipcode = 10009
+yogasampler.birthday = "2001-04-01"
 
 # alex.user_poems.build(:poem => dream)
 # yogasampler.poems << morning
