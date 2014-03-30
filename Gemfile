@@ -70,4 +70,7 @@ gem 'json'
 gem 'pg_search'
 gem 'wordnik'
 
+gem 'devise'
+gem 'omniauth-twitter'
+
 
