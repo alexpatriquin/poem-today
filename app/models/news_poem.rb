@@ -38,14 +38,17 @@ class NewsPoem
 
   def add_to_keyword_collection
     @keywords = []
+    source = :news
     @summary_words.join(' ').downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
       frequency = call_wordnik_api(keyword)
-      @keywords << Keyword.new(keyword, frequency) if frequency < 1000
+      @keywords << Keyword.new(keyword, frequency, source) if frequency < 1000
     end 
   end
 
   def call_wordnik_api(keyword)
-    uri = "http://api.wordnik.com/v4/word.json/#{keyword}/frequency?useCanonical=true&startYear=2000&endYear=2012&api_key=#{ENV["WORDNIK_API_KEY"]}"
+    start_year = 2000
+    end_year = 2012 #latest
+    uri = "http://api.wordnik.com/v4/word.json/#{keyword}/frequency?useCanonical=true&startYear=#{start_year}&endYear=#{end_year}&api_key=#{ENV["WORDNIK_API_KEY"]}"
     parsed_uri = URI.parse(uri)
     response = Net::HTTP.get_response(parsed_uri)
     JSON.parse(response.body)["totalCount"]
@@ -53,10 +56,10 @@ class NewsPoem
 
   def match_keywords_to_poems  
     @keywords.each do |keyword|
-      keyword.poems << Poem.search_by_subject(keyword.keyword_text).map    { |poem| { :id => poem.id, :match_type => [:subject] }}
-      keyword.poems << Poem.search_by_title(keyword.keyword_text).map      { |poem| { :id => poem.id, :match_type => [:title] }}
-      keyword.poems << Poem.search_by_first_line(keyword.keyword_text).map { |poem| { :id => poem.id, :match_type => [:first_line] }}
-      keyword.poems << Poem.search_by_content(keyword.keyword_text).map    { |poem| { :id => poem.id, :match_type => [:content] }}
+      keyword.poems << Poem.search_by_subject(keyword.text).map    { |poem| { :id => poem.id, :match_type => :subject    }}
+      keyword.poems << Poem.search_by_title(keyword.text).map      { |poem| { :id => poem.id, :match_type => :title      }}
+      keyword.poems << Poem.search_by_first_line(keyword.text).map { |poem| { :id => poem.id, :match_type => :first_line }}
+      keyword.poems << Poem.search_by_content(keyword.text).map    { |poem| { :id => poem.id, :match_type => :content    }}
       keyword.poems.flatten!
     end
   end
@@ -67,9 +70,9 @@ class NewsPoem
         poem_hash                      = {}
         poem_hash[:poem_id]            = poem[:id]
         poem_hash[:match_type]         = poem[:match_type]        
-        poem_hash[:keyword_text]       = keyword.keyword_text
+        poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
-        poem_hash[:keyword_source]     = [:news]
+        poem_hash[:keyword_source]     = keyword.source
         @results << poem_hash
       end
     end

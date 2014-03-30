@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20140322200556) do
     t.integer "match_score"
     t.string  "keyword_text"
     t.integer "keyword_frequency"
+    t.string  "keyword_source"
+    t.string  "match_type"
   end
 
   create_table "users", force: true do |t|

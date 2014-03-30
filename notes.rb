@@ -1,69 +1,94 @@
 
-KEYWORDS = [
-  { :keyword_text => "string"
-    :keyword_source => [:twitter, :news],
+# FOR EACH :keyword_source...
+keyword = [
+  { :keyword_text => "string",
     :keyword_frequency => 500,
+    :keyword_source => :twitter,
     :poems => [
-      { :id => 1, :match_type => [:subject, :content] },
-      { :id => 5, :match_type => [:title]             },
-      { :id => 9, :match_type => [:first_line]        }
+      { :id => 5, :match_type => :title,     }, #each of these gets its own match_score
+      { :id => 9, :match_type => :first_line }, #match_type can also be random, birthday, occasion, etc.
+      { :id => 1, :match_type => :subject    }
     ]
   }
 ]
 
+#ONLY KEEP THE WINNER...
 UserPoem
-user_id | poem_id | match_score | keyword_match_type | keyword_source    | keyword_frequency | keyword_text
-1       | 5       | 80          | [:title]           | [:twitter, :news] | 500               | "string"
-
-# Store match_type and source as arrays for now...
-
-user_poem = {
-  :user_id                => 1,
-  :poem_id                => 5,
-  :match_score            => 80,
-  :keyword_text           => "string",
-  :keyword_frequency      => 500,
-  :keyword_source         => [:twitter, :news],
-  :keyword_match_type     => [:title]
-}
+user_id | poem_id | match_score | keyword_match_type | keyword_source | keyword_frequency | keyword_text
+1       | 5       | 80          | :title             | :twitter       | 50                | "string"
 
 
 
+# @keywords > @matches > @results
+
+[1] pry(#<ForecastPoem>)> @keywords
+=> [#<Keyword:0x00000108450098
+  @frequency=616,
+  @poems=[{:id=>3, :match_type=>:title}, {:id=>1, :match_type=>:content}],
+  @source=:forecast,
+  @text="heavy">,
+ #<Keyword:0x00000104a84238
+  @frequency=442,
+  @poems=[{:id=>1, :match_type=>:title}, {:id=>3, :match_type=>:title}],
+  @source=:forecast,
+  @text="rain">,
+ #<Keyword:0x000001074443e8
+  @frequency=785,
+  @poems=[],
+  @source=:forecast,
+  @text="starting">,
+ #<Keyword:0x0000010aaf09a0
+  @frequency=695,
+  @poems=[],
+  @source=:forecast,
+  @text="afternoon">]
+
+[2] pry(#<ForecastPoem>)> @results
+=> [{:poem_id=>3,
+  :match_type=>:title, #match_type can also be random, birthday, occasion, etc.
+  :keyword_text=>"heavy",
+  :keyword_frequency=>616,
+  :keyword_source=>:forecast},
+ {:poem_id=>1,
+  :match_type=>:content,
+  :keyword_text=>"heavy",
+  :keyword_frequency=>616,
+  :keyword_source=>:forecast},
+ {:poem_id=>1,
+  :match_type=>:title,
+  :keyword_text=>"rain",
+  :keyword_frequency=>442,
+  :keyword_source=>:forecast},
+ {:poem_id=>3,
+  :match_type=>:title,
+  :keyword_text=>"rain",
+  :keyword_frequency=>442,
+  :keyword_source=>:forecast}]
 
 
->> KEYWORDS
-=> [#<Keyword:0x00000105d58eb8 
-  @keyword_text="cloudy", 
-  @frequency=55, 
-  @keyword_source=[], 
-  @poems=[
-    {:id=>1, :match_type=> [:title]}, 
-    {:id=>2, :match_type=> [:title]}
-    ]
->]
+[1] pry(#<PoemMatcher>)> @results
+=> [{:poem_id=>3,
+  :match_type=>:title,
+  :keyword_text=>"heavy",
+  :keyword_frequency=>616,
+  :keyword_source=>:forecast,
+  :match_score=>108},
+ {:poem_id=>1,
+  :match_type=>:content,
+  :keyword_text=>"heavy",
+  :keyword_frequency=>616,
+  :keyword_source=>:forecast,
+  :match_score=>68},
+ {:poem_id=>1,
+  :match_type=>:title,
+  :keyword_text=>"rain",
+  :keyword_frequency=>442,
+  :keyword_source=>:forecast,
+  :match_score=>125},
+ {:poem_id=>3,
+  :match_type=>:title,
+  :keyword_text=>"rain",
+  :keyword_frequency=>442,
+  :keyword_source=>:forecast,
+  :match_score=>125}]
 
->> RESULTS
-=> [
-  {:poem_id=>1, 
-   :match_type=>[:title], 
-   :keyword_text=>"cloudy", 
-   :keyword_frequency=>55, 
-   :keyword_source=>[:forecast]
-   }, 
-   {:poem_id=>2, 
-    :match_type=>[:title], 
-    :keyword_text=>"cloudy", 
-    :keyword_frequency=>55, 
-    :keyword_source=>[:forecast]
-    }
-  ]
-
-
-# need to refresh on modules or whatever to eventually get sources and match_type pushing into arrays... 
-# too much code right now
-
-
-
-# AHHHH each source needs its own match types!!!
-
-# Should really save keywords to db

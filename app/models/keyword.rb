@@ -1,12 +1,12 @@
 class Keyword
-  attr_accessor :keyword_text, :frequency, :sources, :poems
+  attr_accessor :text, :frequency, :source, :poems
 
   KEYWORDS = []
 
-  def initialize(keyword_text, frequency)
-    @keyword_text = keyword_text
+  def initialize(text, frequency, source)
+    @text = text
     @frequency = frequency
-    @sources = []
+    @source = source
     @poems = []
   end
 end
