@@ -7,7 +7,7 @@ class NewsPoem
   end
 
   def build_collection
-    @results = []
+    @matches = []
 
     call_nyt_api
     parse_nyt_api
@@ -15,7 +15,7 @@ class NewsPoem
     add_to_keyword_collection
     match_keywords_to_poems
     save_poems_to_results
-    @results
+    @matches
   end
 
   def call_nyt_api
@@ -73,7 +73,7 @@ class NewsPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
-        @results << poem_hash
+        @matches << poem_hash
       end
     end
   end

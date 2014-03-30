@@ -9,11 +9,11 @@ class PoemMatcher
   def match_poem
     @results = []
 
-    news_results     = NewsPoem.new(@user).build_collection
-    @results         << PoemScorer.new.score_results(news_results)
+    news_matches       = NewsPoem.new(@user).build_collection
+    @results           << PoemScorer.new.score_results(news_matches)
 
-    forecast_results = ForecastPoem.new(@user).build_collection
-    @results         << PoemScorer.new.score_results(forecast_results)
+    forecast_matches   = ForecastPoem.new(@user).build_collection
+    @results           << PoemScorer.new.score_results(forecast_matches)
 
     @results.flatten!
     ensure_results

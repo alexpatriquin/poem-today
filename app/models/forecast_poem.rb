@@ -5,7 +5,7 @@ class ForecastPoem
   end
 
   def build_collection
-    @results = []
+    @matches = []
     
     lat = @user.latitude
     long = @user.longitude
@@ -15,7 +15,7 @@ class ForecastPoem
     add_to_keyword_collection
     match_keywords_to_poems
     save_poems_to_results
-    @results
+    @matches
   end
 
   def call_forecastio_api(lat,long)
@@ -63,7 +63,7 @@ class ForecastPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
-        @results << poem_hash
+        @matches << poem_hash
       end
     end
   end
