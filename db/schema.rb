@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(version: 20140331193327) do
     t.float    "latitude"
     t.float    "longitude"
     t.date     "birthday"
+    t.string   "twitter_handle"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

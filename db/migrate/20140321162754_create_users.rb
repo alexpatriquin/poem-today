@@ -5,6 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.float   :latitude
       t.float   :longitude
       t.date    :birthday
+      t.string  :twitter_handle
+      t.string  :first_name
+      t.string  :last_name
 
       t.timestamps
     end

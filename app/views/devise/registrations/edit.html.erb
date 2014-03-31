@@ -9,14 +9,18 @@
   <div><%= f.label :username %><br />
   <%= f.text_field :username %></div>
 
+  <div><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></div>
+
+  <div><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></div>
+
   <div><%= f.label :location %><br />
   <%= f.text_field :location %></div>
 
-
   <div><%= f.label :birthday %><br />
   <%= f.date_field :birthday %></div>
-
-
+  
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

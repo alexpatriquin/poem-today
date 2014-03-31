@@ -28,7 +28,11 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.username = auth.info.nickname
-      user.location = (auth.info.location)
+      #save handle in case username is already taken
+      user.twitter_handle = auth.info.nickname
+      user.location = auth.info.location
+      user.first_name = auth.info.name.split(' ')[0]
+      user.last_name = auth.info.name.split(' ')[1..-1].join(' ')
     end
   end
 

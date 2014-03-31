@@ -9,6 +9,9 @@ class PoemMatcher
   def match_poem
     @results = []
 
+    # tweet_matches       = TweetPoem.new(@user).build_collection
+    # @results           << PoemScorer.new.score_results(news_matches)
+
     news_matches       = NewsPoem.new(@user).build_collection
     @results           << PoemScorer.new.score_results(news_matches)
 
