@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140330215458) do
   end
 
   create_table "users", force: true do |t|
-    t.integer  "zipcode"
+    t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.date     "birthday"
