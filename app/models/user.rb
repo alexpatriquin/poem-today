@@ -7,9 +7,6 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   validates :username, :uniqueness => {:case_sensitive => false}, :presence => true
-  # validates :birthday, :allow_blank => true
-  #http://stackoverflow.com/questions/18831869/rails-validate-type-date
-  #http://guides.rubyonrails.org/form_helpers.html#using-date-and-time-form-helpers
 
   has_many :user_poems
   has_many :poems, :through => :user_poems
