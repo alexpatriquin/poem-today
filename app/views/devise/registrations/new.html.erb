@@ -6,7 +6,16 @@
   <% if f.object.email_required? %>
     <div><%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %></div>
-  <%= end %>
+  <% end %>
+
+  <div><%= f.label :username %><br />
+  <%= f.text_field :username %></div>
+
+  <div><%= f.label :zipcode %><br />
+  <%= f.text_field :zipcode %></div>
+
+  <div><%= f.label :birthday %><br />
+  <%= f.date_field :birthday %></div>
 
   <% if f.object.password_required? %>
     <div><%= f.label :password %><br />
@@ -14,7 +23,7 @@
 
     <div><%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-  <%= end %>
+  <% end %>
     
   <div><%= f.submit "Sign up" %></div>
 <% end %>
