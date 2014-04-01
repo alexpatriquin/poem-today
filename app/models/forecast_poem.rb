@@ -1,4 +1,4 @@
-class ForecastPoem
+class ForecastPoem < ActiveRecord::Base
 
   def initialize(user)
     @user = user
@@ -25,7 +25,7 @@ class ForecastPoem
 
   def save_forecast_summary
     @summary = @payload["daily"]["data"][0]["summary"]
-    Forecast.create(:summary => @summary)
+    Forecast.create(:summary => @summary, :user_id => @user.id)
   end
 
   def parse_forecastio_api
