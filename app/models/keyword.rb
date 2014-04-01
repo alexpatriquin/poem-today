@@ -5,7 +5,7 @@ class Keyword
 
   def initialize(text, frequency, source)
     @text = text
-    @frequency = frequency
+    @frequency = frequency ||= 1001
     @source = source
     @poems = []
   end

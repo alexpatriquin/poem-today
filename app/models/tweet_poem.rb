@@ -8,7 +8,6 @@ class TweetPoem
     @matches = []
 
     call_twitter_api
-    parse_twitter_api
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -16,29 +15,22 @@ class TweetPoem
     @matches
   end
 
-  def call_twiter_api
-    
-    @payload = JSON.parse(response.body)
-  end
-
-  def parse_twitter_api
-    tweets = []
-    number_of_tweets = 3
-    # @payload["results"][1..number_of_articles].each do |article|
-      # titles << article["title"]
-      # abstracts << article["abstract"]
+  def call_twitter_api
+    num_of_tweets = 3
+    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets).map do |tweet| 
+      tweet.text if tweet.created_at > (Time.now - 24.hours)
     end
-    # @summary_words = tweets
+    @payload.compact!
   end
 
   def add_to_keyword_collection
     @keywords = []
     source = :twitter
-    @summary_words.join(' ').downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
+    @payload.join(' ').downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
       frequency = call_wordnik_api(keyword)
-      @keywords << Keyword.new(keyword, frequency, source) if frequency < 1000
+      @keywords << Keyword.new(keyword, frequency, source) if !frequency.nil? && frequency < 1000
     end 
-  end
+  end 
 
   def call_wordnik_api(keyword)
     start_year = 2000

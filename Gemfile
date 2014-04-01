@@ -73,4 +73,6 @@ gem 'wordnik'
 gem 'devise'
 gem 'omniauth-twitter'
 
+gem 'twitter'
+
 

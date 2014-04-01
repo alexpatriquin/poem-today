@@ -9,8 +9,8 @@ class PoemMatcher
   def match_poem
     @results = []
 
-    # tweet_matches       = TweetPoem.new(@user).build_collection
-    # @results           << PoemScorer.new.score_results(news_matches)
+    tweet_matches      = TweetPoem.new(@user).build_collection
+    @results           << PoemScorer.new.score_results(tweet_matches)
 
     news_matches       = NewsPoem.new(@user).build_collection
     @results           << PoemScorer.new.score_results(news_matches)
@@ -32,6 +32,7 @@ class PoemMatcher
   def ensure_not_empty
     if @results.empty?
       poem_hash                      = {}
+      #improve this...
       poem_hash[:poem_id]            = Poem.find(rand(1..Poem.count)).id
       poem_hash[:match_type]         = :random        
       poem_hash[:match_score]        = 0
