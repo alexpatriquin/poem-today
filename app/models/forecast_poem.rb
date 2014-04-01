@@ -10,6 +10,7 @@ class ForecastPoem
     lat = @user.latitude
     long = @user.longitude
     call_forecastio_api(lat,long)
+    save_forecast_summary
     parse_forecastio_api
 
     add_to_keyword_collection
@@ -22,8 +23,13 @@ class ForecastPoem
     @payload = ForecastIO.forecast(lat,long)
   end
 
- def parse_forecastio_api
-    @summary_words = @payload["daily"]["data"][0]["summary"].delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
+  def save_forecast_summary
+    @summary = @payload["daily"]["data"][0]["summary"]
+    Forecast.create(:summary => @summary)
+  end
+
+  def parse_forecastio_api
+    @summary_words = @summary.delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
   end
 
   def add_to_keyword_collection
