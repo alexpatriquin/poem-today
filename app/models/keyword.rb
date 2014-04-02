@@ -1,5 +1,5 @@
 class Keyword
-  attr_accessor :text, :frequency, :source, :poems
+  attr_accessor :text, :frequency, :source, :source_id, :poems
 
   KEYWORDS = []
 

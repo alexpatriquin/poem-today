@@ -10,7 +10,7 @@ class NewsPoem
     @matches = []
 
     call_nyt_api
-    parse_nyt_api
+    take_top_articles
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -25,24 +25,27 @@ class NewsPoem
     @payload = JSON.parse(response.body)
   end
 
-  def parse_nyt_api
-    titles = []
-    abstracts = []
-    number_of_articles = 3
-    @payload["results"][1..number_of_articles].each do |article|
-      titles << article["title"]
-      # abstracts << article["abstract"]
-    end
-    @summary_words = titles + abstracts
+  def take_top_articles
+    num_of_articles = 3
+    @title_urls = @payload["results"][1..num_of_articles].map do |article| 
+                    { :title => article["title"], :url => article["url"] }
+                  end
   end
 
   def add_to_keyword_collection
     @keywords = []
     source = :news
-    @summary_words.join(' ').downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
-      frequency = call_wordnik_api(keyword)
-      @keywords << Keyword.new(keyword, frequency, source) if frequency < 1000
-    end 
+    @title_urls.each do |hash|
+      keywords = hash[:title].downcase.gsub(/’s|[^a-z\s]/,'').split.uniq
+      keywords.each do |keyword|
+        frequency = call_wordnik_api(keyword)
+        if !frequency.nil? && frequency > 0 && frequency < 1000
+          infreq_word = Keyword.new(keyword, frequency, source)
+          infreq_word.source_id = hash[:url]
+          @keywords << infreq_word
+        end
+      end
+    end
   end
 
   def call_wordnik_api(keyword)
@@ -73,9 +76,11 @@ class NewsPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
+        poem_hash[:keyword_source_id]  = keyword.source_id
         @matches << poem_hash
       end
     end
+    binding.pry
   end
 
 end

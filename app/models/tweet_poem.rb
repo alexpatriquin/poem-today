@@ -8,6 +8,7 @@ class TweetPoem
     @matches = []
 
     call_twitter_api
+    take_past_day_tweets
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -17,20 +18,27 @@ class TweetPoem
 
   def call_twitter_api
     num_of_tweets = 3
-    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets).map do |tweet| 
-      tweet.text if tweet.created_at > (Time.now - 24.hours)
-    end
-    @payload.compact!
+    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets)
+  end
+
+  def take_past_day_tweets
+    @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
   end
 
   def add_to_keyword_collection
     @keywords = []
     source = :twitter
-    @payload.join(' ').downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
-      frequency = call_wordnik_api(keyword)
-      @keywords << Keyword.new(keyword, frequency, source) if !frequency.nil? && frequency < 1000
-    end 
-  end 
+    @payload.each do |tweet|
+      tweet.text.downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
+        frequency = call_wordnik_api(keyword)
+        if !frequency.nil? && frequency > 0 && frequency < 1000
+          infreq_word = Keyword.new(keyword, frequency, source)
+          infreq_word.source_id = tweet.id
+          @keywords << infreq_word
+        end
+      end
+    end
+  end
 
   def call_wordnik_api(keyword)
     start_year = 2000
@@ -60,6 +68,7 @@ class TweetPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
+        poem_hash[:keyword_source_id]  = keyword.source_id
         @matches << poem_hash
       end
     end

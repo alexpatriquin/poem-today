@@ -9,15 +9,15 @@ class PoemMatcher
   def match_poem
     @results = []
 
-    tweet_matches      = TweetPoem.new(@user).build_collection
-    @results           << PoemScorer.new.score_results(tweet_matches)
+    forecast_matches   = ForecastPoem.new(@user).build_collection
+    @results           << PoemScorer.new.score_results(forecast_matches)
 
     news_matches       = NewsPoem.new(@user).build_collection
     @results           << PoemScorer.new.score_results(news_matches)
 
-    forecast_matches   = ForecastPoem.new(@user).build_collection
-    @results           << PoemScorer.new.score_results(forecast_matches)
-
+    tweet_matches      = TweetPoem.new(@user).build_collection
+    @results           << PoemScorer.new.score_results(tweet_matches)
+    
     @results.flatten!
     ensure_results
     save_top_result
@@ -60,6 +60,7 @@ class PoemMatcher
                            :keyword_text        => top_result[:keyword_text],
                            :keyword_frequency   => top_result[:keyword_frequency],
                            :keyword_source      => top_result[:keyword_source],
+                           :keyword_source_id   => top_result[:keyword_source_id],
                            :match_type          => top_result[:match_type])
     @user.save
     Poem.find(top_result[:poem_id])
