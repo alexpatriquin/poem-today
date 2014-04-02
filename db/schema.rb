@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140401105502) do
   create_table "forecasts", force: true do |t|
     t.string   "summary"
     t.integer  "user_id"
+    t.integer  "min_temp"
+    t.integer  "max_temp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

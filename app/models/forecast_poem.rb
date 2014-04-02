@@ -25,7 +25,12 @@ class ForecastPoem < ActiveRecord::Base
 
   def save_forecast_summary
     @summary = @payload["daily"]["data"][0]["summary"]
-    Forecast.create(:summary => @summary, :user_id => @user.id)
+    min_temp = @payload["daily"]["data"][0]["apparentTemperatureMin"].round
+    max_temp = @payload["daily"]["data"][0]["apparentTemperatureMax"].round
+    Forecast.create(:summary  => @summary, 
+                    :user_id  => @user.id,
+                    :min_temp => min_temp,
+                    :max_temp => max_temp)
   end
 
   def parse_forecastio_api
