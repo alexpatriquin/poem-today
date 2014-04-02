@@ -1,4 +1,6 @@
-class TweetPoem
+require 'open-uri'
+
+class NewsPoem
 
   def initialize(user)
     @user = user
@@ -7,8 +9,8 @@ class TweetPoem
   def build_collection
     @matches = []
 
-    call_twitter_api
-    take_past_day_tweets
+    call_nyt_api
+    take_top_articles
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -16,24 +18,30 @@ class TweetPoem
     @matches
   end
 
-  def call_twitter_api
-    num_of_tweets = 3
-    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets)
+  def call_nyt_api
+    uri = "http://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json?api-key=#{ENV["NYT_APIKEY"]}"
+    parsed_uri = URI.parse(uri)
+    response = Net::HTTP.get_response(parsed_uri)
+    @payload = JSON.parse(response.body)
   end
 
-  def take_past_day_tweets
-    @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
+  def take_top_articles
+    num_of_articles = 3
+    @title_urls = @payload["results"][1..num_of_articles].map do |article| 
+                    { :title => article["title"], :url => article["url"] }
+                  end
   end
 
   def add_to_keyword_collection
     @keywords = []
-    source = :twitter
-    @payload.each do |tweet|
-      tweet.text.downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
+    source = :news
+    @title_urls.each do |hash|
+      keywords = hash[:title].downcase.gsub(/’s|[^a-z\s]/,'').split.uniq
+      keywords.each do |keyword|
         frequency = call_wordnik_api(keyword)
         if !frequency.nil? && frequency > 0 && frequency < 1000
           infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = tweet.id
+          infreq_word.source_id = hash[:url]
           @keywords << infreq_word
         end
       end

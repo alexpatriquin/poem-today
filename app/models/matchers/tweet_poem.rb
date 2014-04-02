@@ -1,4 +1,4 @@
-class ForecastPoem < ActiveRecord::Base
+class TweetPoem
 
   def initialize(user)
     @user = user
@@ -6,12 +6,9 @@ class ForecastPoem < ActiveRecord::Base
 
   def build_collection
     @matches = []
-    
-    lat = @user.latitude
-    long = @user.longitude
-    call_forecastio_api(lat,long)
-    save_forecast_summary
-    parse_forecastio_api
+
+    call_twitter_api
+    save_past_day_tweets
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -19,31 +16,31 @@ class ForecastPoem < ActiveRecord::Base
     @matches
   end
 
-  def call_forecastio_api(lat,long)
-    @payload = ForecastIO.forecast(lat,long)
+  def call_twitter_api
+    num_of_tweets = 3
+    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets)
   end
 
-  def save_forecast_summary
-    @summary = @payload["daily"]["data"][0]["summary"]
-    min_temp = @payload["daily"]["data"][0]["apparentTemperatureMin"].round
-    max_temp = @payload["daily"]["data"][0]["apparentTemperatureMax"].round
-    Forecast.create(:summary  => @summary, 
-                    :user_id  => @user.id,
-                    :min_temp => min_temp,
-                    :max_temp => max_temp)
-  end
-
-  def parse_forecastio_api
-    @summary_words = @summary.delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
+  def save_past_day_tweets
+    @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
+    @payload.each do |tweet|
+      Tweet.create(   
+                   :user_id => user.id)
   end
 
   def add_to_keyword_collection
     @keywords = []
-    source = :forecast
-    @summary_words.each do |keyword|
-      frequency = call_wordnik_api(keyword)
-      @keywords << Keyword.new(keyword, frequency, source) if frequency < 1000
-    end 
+    source = :twitter
+    @payload.each do |tweet|
+      tweet.text.downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
+        frequency = call_wordnik_api(keyword)
+        if !frequency.nil? && frequency > 0 && frequency < 1000
+          infreq_word = Keyword.new(keyword, frequency, source)
+          infreq_word.source_id = tweet.id
+          @keywords << infreq_word
+        end
+      end
+    end
   end
 
   def call_wordnik_api(keyword)
@@ -74,6 +71,7 @@ class ForecastPoem < ActiveRecord::Base
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
+        poem_hash[:keyword_source_id]  = keyword.source_id
         @matches << poem_hash
       end
     end

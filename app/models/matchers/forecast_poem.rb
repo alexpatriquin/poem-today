@@ -1,6 +1,4 @@
-require 'open-uri'
-
-class NewsPoem
+class ForecastPoem
 
   def initialize(user)
     @user = user
@@ -8,9 +6,12 @@ class NewsPoem
 
   def build_collection
     @matches = []
-
-    call_nyt_api
-    take_top_articles
+    
+    lat = @user.latitude
+    long = @user.longitude
+    call_forecastio_api(lat,long)
+    save_forecast_summary
+    parse_forecastio_api
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -18,34 +19,31 @@ class NewsPoem
     @matches
   end
 
-  def call_nyt_api
-    uri = "http://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json?api-key=#{ENV["NYT_APIKEY"]}"
-    parsed_uri = URI.parse(uri)
-    response = Net::HTTP.get_response(parsed_uri)
-    @payload = JSON.parse(response.body)
+  def call_forecastio_api(lat,long)
+    @payload = ForecastIO.forecast(lat,long)
   end
 
-  def take_top_articles
-    num_of_articles = 3
-    @title_urls = @payload["results"][1..num_of_articles].map do |article| 
-                    { :title => article["title"], :url => article["url"] }
-                  end
+  def save_forecast_summary
+    @summary = @payload["daily"]["data"][0]["summary"]
+    min_temp = @payload["daily"]["data"][0]["apparentTemperatureMin"].round
+    max_temp = @payload["daily"]["data"][0]["apparentTemperatureMax"].round
+    Forecast.create(:summary  => @summary, 
+                    :user_id  => @user.id,
+                    :min_temp => min_temp,
+                    :max_temp => max_temp)
+  end
+
+  def parse_forecastio_api
+    @summary_words = @summary.delete('.').downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
   end
 
   def add_to_keyword_collection
     @keywords = []
-    source = :news
-    @title_urls.each do |hash|
-      keywords = hash[:title].downcase.gsub(/’s|[^a-z\s]/,'').split.uniq
-      keywords.each do |keyword|
-        frequency = call_wordnik_api(keyword)
-        if !frequency.nil? && frequency > 0 && frequency < 1000
-          infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = hash[:url]
-          @keywords << infreq_word
-        end
-      end
-    end
+    source = :forecast
+    @summary_words.each do |keyword|
+      frequency = call_wordnik_api(keyword)
+      @keywords << Keyword.new(keyword, frequency, source) if frequency < 1000
+    end 
   end
 
   def call_wordnik_api(keyword)
@@ -76,11 +74,9 @@ class NewsPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
-        poem_hash[:keyword_source_id]  = keyword.source_id
         @matches << poem_hash
       end
     end
-    binding.pry
   end
 
 end

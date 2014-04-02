@@ -1,0 +1,2 @@
+class HolidayPoem
+end
