@@ -1,4 +1,6 @@
 class TweetPoem
+  include HTTParty
+  require 'open-uri'
 
   def initialize(user)
     @user = user
@@ -17,8 +19,9 @@ class TweetPoem
   end
 
   def call_twitter_api
-    num_of_tweets = 3
-    @payload = TWITTER_CLIENT.user_timeline(@user.twitter_handle, :count => num_of_tweets)
+    num_of_tweets = 5
+    binding.pry
+    @payload  = TWITTER_CLIENT.search("from:#{@user.twitter_handle}", :result_type => "recent").take(num_of_tweets)
   end
 
   def save_past_day_tweets

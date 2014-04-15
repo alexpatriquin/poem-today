@@ -15,8 +15,10 @@ class PoemMatcher
     news_matches       = NewsPoem.new(@user).build_collection
     @results           << PoemScorer.new.score_results(news_matches)
 
-    tweet_matches      = TweetPoem.new(@user).build_collection
-    @results           << PoemScorer.new.score_results(tweet_matches)
+    if @user.twitter_handle != nil
+      tweet_matches      = TweetPoem.new(@user).build_collection
+      @results           << PoemScorer.new.score_results(tweet_matches)
+    end
     
     @results.flatten!
     ensure_results

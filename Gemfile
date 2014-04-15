@@ -74,5 +74,7 @@ gem 'devise'
 gem 'omniauth-twitter'
 
 gem 'twitter'
-
+gem 'httparty'
+gem 'airbrake'
+gem 'font-awesome-rails'
 
