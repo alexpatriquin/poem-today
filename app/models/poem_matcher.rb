@@ -1,6 +1,19 @@
 class PoemMatcher
 
-  Holidays = []
+  HOLIDAYS_2014 = { 
+    "Christmas"         => "2014-12-25",
+    "Alex's Birthday"   => "2014-04-19",
+    "Cinco de Mayo"     => "2014-05-05",
+    "Father's Day"      => "2014-06-15",
+    "Halloween"         => "2014-10-31",
+    "Independence Day"  => "2014-07-04",
+    "Labor Day"         => "2014-09-01",
+    "Memorial Day"      => "2014-06-26",
+    "Mother's Day"      => "2014-05-11",
+    "New Years Eve"     => "2014-12-31",
+    "Code Day"          => "2014-04-15",
+    "Thanksgiving"      => "2014-11-27" 
+  }
 
   def initialize(user)
     @user = user    
@@ -9,20 +22,67 @@ class PoemMatcher
   def match_poem
     @results = []
     
-    forecast_matches   = ForecastPoem.new(@user).build_collection
-    @results           << PoemScorer.new.score_results(forecast_matches)
-
-    news_matches       = NewsPoem.new(@user).build_collection
-    @results           << PoemScorer.new.score_results(news_matches)
-
-    if @user.twitter_handle != nil
-      tweet_matches      = TweetPoem.new(@user).build_collection
-      @results           << PoemScorer.new.score_results(tweet_matches)
+    if user_created_today && @user.first_name
+      first_name_match 
+    elsif @user.birthday && user_birthday_today 
+      birthday_match
+      first_name_match
+    elsif holiday_today
+      holiday_match
+    else
+      forecast_match
+      news_match
+      tweet_match
     end
-    
+
     @results.flatten!
     ensure_results
     save_top_result
+  end
+
+
+  def user_created_today
+    @user.created_at.month == Date.today.month && @user.created_at.month == Date.today.month
+  end
+
+  def first_name_match
+    first_name_matches = FirstNamePoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(first_name_matches)
+  end
+
+  def user_birthday_today
+    @user.birthday == Date.today
+  end
+
+  def birthday_match
+    birthday_matches = FirstNamePoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(birthday_matches)
+  end
+  
+  def holiday_today
+    HOLIDAYS_2014.values.include?(Date.today.to_s)
+  end
+
+  def holiday_match
+    holiday_matches = FirstNamePoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(holiday_matches)
+  end
+
+  def forecast_match
+    forecast_matches = ForecastPoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(forecast_matches)
+  end
+
+  def news_match
+    news_matches = NewsPoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(news_matches)
+  end
+
+  def tweet_match
+    if @user.twitter_handle != nil
+      tweet_matches  = TweetPoem.new(@user).build_collection
+      @results << PoemScorer.new.score_results(tweet_matches)
+    end
   end
 
   def ensure_results

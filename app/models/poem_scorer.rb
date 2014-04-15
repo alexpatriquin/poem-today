@@ -22,7 +22,7 @@ class PoemScorer
 
   def score_by_match_type(result)
     case result[:match_type]
-    when :title
+    when :subject || :occasion || :title
       result[:match_score] += 50
     when :first_line
       result[:match_score] += 30  

@@ -1,4 +1,4 @@
-class TweetPoem
+class FirstNamePoem
 
   def initialize(user)
     @user = user
@@ -7,8 +7,7 @@ class TweetPoem
   def build_collection
     @matches = []
 
-    call_twitter_api
-    save_past_day_tweets
+    parse_first_name
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -16,39 +15,16 @@ class TweetPoem
     @matches
   end
 
-  def call_twitter_api
-    num_of_tweets = 5
-    binding.pry
-    @payload  = TWITTER_CLIENT.search("from:#{@user.twitter_handle}", :result_type => "recent").take(num_of_tweets)
-  end
-
-  def save_past_day_tweets
-    @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
-    @payload.each      { |tweet| Tweet.create(:user_id  => @user.id, :text => tweet.text, :id_str => tweet.id.to_s) }
+  def parse_first_name
+    @parsed_name = @user.first_name.downcase.gsub(/’s|[^a-z\s]/,' ').split.uniq
   end
 
   def add_to_keyword_collection
     @keywords = []
-    source = :twitter
-    @payload.each do |tweet|
-      tweet.text.downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
-        frequency = call_wordnik_api(keyword)
-        if !frequency.nil? && frequency > 0 && frequency < 1000
-          infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = tweet.id.to_s
-          @keywords << infreq_word
-        end
-      end
-    end
-  end
-
-  def call_wordnik_api(keyword)
-    start_year = 2000
-    end_year = 2012 #latest
-    uri = "http://api.wordnik.com/v4/word.json/#{keyword}/frequency?useCanonical=true&startYear=#{start_year}&endYear=#{end_year}&api_key=#{ENV["WORDNIK_API_KEY"]}"
-    parsed_uri = URI.parse(uri)
-    response = Net::HTTP.get_response(parsed_uri)
-    JSON.parse(response.body)["totalCount"]
+    source = :first_name
+    @parsed_name.each do |keyword|
+      @keywords << Keyword.new(keyword, 0, source)
+    end 
   end
 
   def match_keywords_to_poems  
