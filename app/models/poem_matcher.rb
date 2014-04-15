@@ -8,7 +8,7 @@ class PoemMatcher
 
   def match_poem
     @results = []
-
+    
     forecast_matches   = ForecastPoem.new(@user).build_collection
     @results           << PoemScorer.new.score_results(forecast_matches)
 

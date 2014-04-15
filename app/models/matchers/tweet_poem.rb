@@ -23,9 +23,7 @@ class TweetPoem
 
   def save_past_day_tweets
     @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
-    @payload.each do |tweet|
-      Tweet.create(   
-                   :user_id => user.id)
+    @payload.each      { |tweet| Tweet.create(:user_id  => @user.id, :text => tweet.text, :id_str => tweet.id.to_s) }
   end
 
   def add_to_keyword_collection
@@ -36,7 +34,7 @@ class TweetPoem
         frequency = call_wordnik_api(keyword)
         if !frequency.nil? && frequency > 0 && frequency < 1000
           infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = tweet.id
+          infreq_word.source_id = tweet.id.to_s
           @keywords << infreq_word
         end
       end

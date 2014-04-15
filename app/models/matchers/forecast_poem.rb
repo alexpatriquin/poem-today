@@ -27,8 +27,8 @@ class ForecastPoem
     @summary = @payload["daily"]["data"][0]["summary"]
     min_temp = @payload["daily"]["data"][0]["apparentTemperatureMin"].round
     max_temp = @payload["daily"]["data"][0]["apparentTemperatureMax"].round
-    Forecast.create(:summary  => @summary, 
-                    :user_id  => @user.id,
+    Forecast.create(:user_id  => @user.id,
+                    :summary  => @summary, 
                     :min_temp => min_temp,
                     :max_temp => max_temp)
   end
@@ -74,6 +74,7 @@ class ForecastPoem
         poem_hash[:keyword_text]       = keyword.text
         poem_hash[:keyword_frequency]  = keyword.frequency
         poem_hash[:keyword_source]     = keyword.source
+        poem_hash[:keyword_source_id]  = Date.today.to_s
         @matches << poem_hash
       end
     end

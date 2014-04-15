@@ -1,3 +1,5 @@
+# Remember that config.omniauth adds omniauth provider middleware to your application. This means you should not add this provider middleware again in config/initializers/omniauth.rb as they'll clash with each other and result in always-failing authentication.
+
 require 'twitter'
 
 TWITTER_CLIENT = Twitter::REST::Client.new do |config|

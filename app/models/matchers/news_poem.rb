@@ -11,6 +11,7 @@ class NewsPoem
 
     call_nyt_api
     take_top_articles
+    save_top_articles
 
     add_to_keyword_collection
     match_keywords_to_poems
@@ -30,6 +31,10 @@ class NewsPoem
     @title_urls = @payload["results"][1..num_of_articles].map do |article| 
                     { :title => article["title"], :url => article["url"] }
                   end
+  end
+
+  def save_top_articles
+    @title_urls.each { |tu| News.create!(:user_id  => @user.id, :title => tu[:title], :url => tu[:url]) }
   end
 
   def add_to_keyword_collection

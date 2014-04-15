@@ -11,16 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401105502) do
+ActiveRecord::Schema.define(version: 20140402130701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "forecasts", force: true do |t|
-    t.string   "summary"
     t.integer  "user_id"
+    t.string   "summary"
     t.integer  "min_temp"
     t.integer  "max_temp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,6 +69,19 @@ ActiveRecord::Schema.define(version: 20140401105502) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tweets", force: true do |t|
+    t.integer  "user_id"
+    t.string   "text"
+    t.string   "id_str"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_occasions", force: true do |t|
+    t.string  "name"
+    t.integer "user_id"
   end
 
   create_table "user_poems", force: true do |t|
