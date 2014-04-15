@@ -117,7 +117,6 @@ ActiveRecord::Schema.define(version: 20140402130701) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

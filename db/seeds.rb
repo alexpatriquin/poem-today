@@ -34,8 +34,7 @@ walk.save
 # morning.content = "Here I sitA0With my shoes mismated.A0Lawdy-mercy!A0I's frustrated!A0"
 # morning.save
 
-alex = User.create(username: "alex", password: "abc123")
-alex.email = "alexpatrquin@gmail.com"
+alex = User.create(email: "alexpatrquin@gmail.com", password: "abc123")
 alex.location = "10009"
 alex.birthday = "1999-03-30"
 alex.save
