@@ -11,7 +11,6 @@ class PoemMatcher
     "Memorial Day"      => "2014-06-26",
     "Mother's Day"      => "2014-05-11",
     "New Years Eve"     => "2014-12-31",
-    "Code Day"          => "2014-04-15",
     "Thanksgiving"      => "2014-11-27" 
   }
 
@@ -27,6 +26,7 @@ class PoemMatcher
     elsif @user.birthday && user_birthday_today 
       birthday_match
       first_name_match
+      binding.pry
     elsif holiday_today
       holiday_match
     else
@@ -39,7 +39,6 @@ class PoemMatcher
     ensure_results
     save_top_result
   end
-
 
   def user_created_today
     @user.created_at.month == Date.today.month && @user.created_at.month == Date.today.month
@@ -55,7 +54,7 @@ class PoemMatcher
   end
 
   def birthday_match
-    birthday_matches = FirstNamePoem.new(@user).build_collection
+    birthday_matches = BirthdayPoem.new(@user).build_collection
     @results << PoemScorer.new.score_results(birthday_matches)
   end
   
@@ -64,7 +63,7 @@ class PoemMatcher
   end
 
   def holiday_match
-    holiday_matches = FirstNamePoem.new(@user).build_collection
+    holiday_matches = HolidayPoem.new(@user).build_collection
     @results << PoemScorer.new.score_results(holiday_matches)
   end
 

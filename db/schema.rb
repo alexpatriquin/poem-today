@@ -54,12 +54,10 @@ ActiveRecord::Schema.define(version: 20140402130701) do
   end
 
   create_table "poems", force: true do |t|
-    t.string   "poet"
-    t.string   "poet_birthyear"
     t.string   "title"
     t.string   "first_line"
     t.text     "content"
-    t.string   "holiday"
+    t.string   "poet"
     t.string   "isbn"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -79,11 +77,6 @@ ActiveRecord::Schema.define(version: 20140402130701) do
     t.datetime "updated_at"
   end
 
-  create_table "user_occasions", force: true do |t|
-    t.string  "name"
-    t.integer "user_id"
-  end
-
   create_table "user_poems", force: true do |t|
     t.integer "user_id"
     t.integer "poem_id"
@@ -96,12 +89,12 @@ ActiveRecord::Schema.define(version: 20140402130701) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "first_name"
+    t.date     "birthday"
+    t.string   "twitter_handle"
     t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
-    t.date     "birthday"
-    t.string   "twitter_handle"
-    t.string   "first_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

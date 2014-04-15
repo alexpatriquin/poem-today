@@ -32,6 +32,7 @@ class PoemScorer
   end
 
   def score_by_frequency(result)
+    #birthdays, name days and holidays have 0 freq => 100 points
     frequency_score = (1000 - result[:keyword_frequency]) / 10
     result[:match_score] += frequency_score
   end
