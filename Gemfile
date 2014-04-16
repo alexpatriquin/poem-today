@@ -61,20 +61,17 @@ end
 
 gem 'figaro'
 gem 'whenever'
-
 gem 'mandrill-api'
 gem 'forecast_io'
 gem 'geocoder'
 gem 'json'
-
 gem 'pg_search'
 gem 'wordnik'
-
 gem 'devise'
 gem 'omniauth-twitter'
-
 gem 'twitter'
 gem 'httparty'
 gem 'airbrake'
 gem 'font-awesome-rails'
+gem 'nokogiri'
 

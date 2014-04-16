@@ -254,6 +254,7 @@ DEPENDENCIES
   jquery-rails
   json
   mandrill-api
+  nokogiri
   omniauth-twitter
   pg
   pg_search
