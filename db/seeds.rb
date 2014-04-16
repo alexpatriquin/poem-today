@@ -39,7 +39,13 @@ require 'open-uri'
                             :first_line => clean_text(poem_doc.search("#poem > .poem").text).first, 
                             :content => clean_text(poem_doc.search("#poem > .poem").text).join("\n"), 
                             :poet => poem_doc.search("#poemwrapper > .fullname_search").text)
-      
+        
+      subjects = poem_doc.search(".section").text
+      subjects.each { |name| db_poem.subjects << find_or_create_subject(name) } if !subjects.nil?
+
+      occasions = poem_doc.search(".section").text
+      occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.nil?
+
       rescue
         puts "Could not create #{title}"
         next
@@ -53,20 +59,22 @@ require 'open-uri'
     end
   end
 
-  class PersistenceError < StandardError
-  end
-
-  class LoadError < StandardError
-  end
-
   def clean_text(noko_string)
     noko_string.gsub("\t","").gsub("\r","").split("\n").delete_if(&:empty?)
   end
 
-  def create_subject
+  def find_or_create_subject(name)
+    Subject.find_by_name(name) || Subject.create(name: name)
   end
 
-  def create_occasion
+  def find_or_create_occasion(name)
+    Occasion.find_by_name(name) || Occasion.create(name: name)
+  end
+
+  class PersistenceError < StandardError
+  end
+
+  class LoadError < StandardError
   end
 
 end
