@@ -1,17 +1,17 @@
 class PoemMatcher
 
   HOLIDAYS_2014 = { 
-    "Christmas"         => "2014-12-25",
-    "Alex's Birthday"   => "2014-04-19",
-    "Cinco de Mayo"     => "2014-05-05",
-    "Father's Day"      => "2014-06-15",
-    "Halloween"         => "2014-10-31",
-    "Independence Day"  => "2014-07-04",
-    "Labor Day"         => "2014-09-01",
-    "Memorial Day"      => "2014-06-26",
-    "Mother's Day"      => "2014-05-11",
-    "New Years Eve"     => "2014-12-31",
-    "Thanksgiving"      => "2014-11-27" 
+    "christmas"         => "2014-12-25",
+    "alex's birthday"   => "2014-04-19",
+    "cinco de mayo"     => "2014-05-05",
+    "father's day"      => "2014-06-15",
+    "halloween"         => "2014-10-31",
+    "independence day"  => "2014-07-04",
+    "labor day"         => "2014-09-01",
+    "memorial day"      => "2014-06-26",
+    "mother's day"      => "2014-05-11",
+    "new years eve"     => "2014-12-31",
+    "thanksgiving"      => "2014-11-27" 
   }
 
   def initialize(user)
@@ -26,7 +26,6 @@ class PoemMatcher
     elsif @user.birthday && user_birthday_today 
       birthday_match
       first_name_match
-      binding.pry
     elsif holiday_today
       holiday_match
     else

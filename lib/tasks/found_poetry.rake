@@ -9,19 +9,13 @@ namespace :fp do
   desc "Seed the database with found poetry"
   task :seed_poems => [:fp_env] do
     require_relative "found_poetry.rb"
-
-    @titles_array.flatten.each do |title|
+        
       begin
-        FoundPoetry.get_books(title)
+        poems = FoundPoetry.new.get_poem_serps(20)
       rescue LoadError
-        puts "Couldn't load books by title #{title}"
+        puts "Couldn't get poems"
         next
       end
-
-      puts "Persisted book records for title #{title}"
-
-    end
-
+      puts "Persisted poems"
   end
-
 end
