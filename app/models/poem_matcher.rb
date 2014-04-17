@@ -101,10 +101,6 @@ class PoemMatcher
 
   def ensure_unique
     user_poem_history = UserPoem.where(user_id: @user.id).pluck(:poem_id)
-    # results_poem_ids = []
-    # @results.each { |result| results_poem_ids << result[:poem_id] }
-    # overlap = user_poem_history & results_poem_ids
-
     user_poem_history.each do |poem_id|
       @results.delete_if { |result| result[:poem_id] == poem_id }
     end
@@ -113,7 +109,6 @@ class PoemMatcher
   end
 
   def save_top_result
-    # binding.pry
     top_result = @results.inject do |winning,result| 
       winning[:match_score] > result[:match_score] ? winning : result 
     end
