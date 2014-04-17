@@ -90,7 +90,6 @@ class PoemMatcher
   def ensure_not_empty
     if @results.empty?
       poem_hash                      = {}
-      #improve this...
       poem_hash[:poem_id]            = Poem.find(rand(1..Poem.count)).id
       poem_hash[:match_type]         = :random        
       poem_hash[:match_score]        = 0
@@ -101,15 +100,20 @@ class PoemMatcher
   end
 
   def ensure_unique
-    @user_poem_history ||= UserPoem.where(:user_id => @user.id).pluck(:poem_id)
-    @results.each do |result| 
-      # binding.pry
-      @results.delete(result) if @user_poem_history.include?(result[:poem_id]) 
+    user_poem_history = UserPoem.where(user_id: @user.id).pluck(:poem_id)
+    # results_poem_ids = []
+    # @results.each { |result| results_poem_ids << result[:poem_id] }
+    # overlap = user_poem_history & results_poem_ids
+
+    user_poem_history.each do |poem_id|
+      @results.delete_if { |result| result[:poem_id] == poem_id }
     end
+
     ensure_not_empty
   end
 
   def save_top_result
+    # binding.pry
     top_result = @results.inject do |winning,result| 
       winning[:match_score] > result[:match_score] ? winning : result 
     end
