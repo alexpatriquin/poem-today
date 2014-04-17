@@ -26,13 +26,13 @@ class PoemMatcher
     elsif @user.birthday && user_birthday_today 
       birthday_match
       first_name_match
-    elsif holiday_today
+    else holiday_today
       holiday_match
-    else
-      forecast_match
-      news_match
-      tweet_match
     end
+
+    forecast_match if @user.location != nil
+    news_match
+    tweet_match if @user.twitter_handle != nil
 
     @results.flatten!
     ensure_results
@@ -40,7 +40,15 @@ class PoemMatcher
   end
 
   def user_created_today
-    @user.created_at.month == Date.today.month && @user.created_at.month == Date.today.month
+    @user.created_at.month == Date.today.month && @user.created_at.day == Date.today.day
+  end
+
+  def user_birthday_today
+    @user.birthday == Date.today
+  end
+  
+  def holiday_today
+    HOLIDAYS_2014.values.include?(Date.today.to_s)
   end
 
   def first_name_match
@@ -48,17 +56,9 @@ class PoemMatcher
     @results << PoemScorer.new.score_results(first_name_matches)
   end
 
-  def user_birthday_today
-    @user.birthday == Date.today
-  end
-
   def birthday_match
     birthday_matches = BirthdayPoem.new(@user).build_collection
     @results << PoemScorer.new.score_results(birthday_matches)
-  end
-  
-  def holiday_today
-    HOLIDAYS_2014.values.include?(Date.today.to_s)
   end
 
   def holiday_match
@@ -77,10 +77,8 @@ class PoemMatcher
   end
 
   def tweet_match
-    if @user.twitter_handle != nil
-      tweet_matches  = TweetPoem.new(@user).build_collection
-      @results << PoemScorer.new.score_results(tweet_matches)
-    end
+    tweet_matches  = TweetPoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(tweet_matches)
   end
 
   def ensure_results

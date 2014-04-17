@@ -11,7 +11,7 @@ class FoundPoetry
       page_number = rand(1..total_pages)
       if !PageNumber.where(number: page_number).exists?
         uri = "http://www.poetryfoundation.org/searchresults?page=#{page_number}"
-        # sleep(rand(60))
+        sleep(rand(60))
         serp = Nokogiri::HTML(open(uri))
         serp.search("a.title").each do |a| 
           @poem_urls << a.attribute("href").value 
@@ -27,7 +27,7 @@ class FoundPoetry
   def scrape_poems(poem_urls)
     poem_urls.each do |poem_url|
       uri = "http://www.poetryfoundation.org#{poem_url}"
-      # sleep(rand(60))
+      sleep(rand(60))
       begin
         poem_doc = Nokogiri::HTML(open(uri))
         db_poem = Poem.create(:title => poem_doc.search("#poem-top > h1").text,

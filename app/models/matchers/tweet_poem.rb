@@ -18,13 +18,12 @@ class TweetPoem
 
   def call_twitter_api
     num_of_tweets = 5
-    binding.pry
     @payload  = TWITTER_CLIENT.search("from:#{@user.twitter_handle}", :result_type => "recent").take(num_of_tweets)
   end
 
   def save_past_day_tweets
     @payload.delete_if { |tweet| tweet.created_at < (Time.now - 24.hours)}
-    @payload.each      { |tweet| Tweet.create(:user_id  => @user.id, :text => tweet.text, :id_str => tweet.id.to_s) }
+    @payload.each      { |tweet| Tweet.create(:user_id  => @user.id, :text => tweet.text, :id_str => tweet.url.to_s) }
   end
 
   def add_to_keyword_collection
@@ -35,7 +34,7 @@ class TweetPoem
         frequency = call_wordnik_api(keyword)
         if !frequency.nil? && frequency > 0 && frequency < 1000
           infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = tweet.id.to_s
+          infreq_word.source_id = tweet.url.to_s
           @keywords << infreq_word
         end
       end
