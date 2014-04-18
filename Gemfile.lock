@@ -37,6 +37,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.1.0)
+      sass (~> 3.2)
     buftok (0.2.0)
     builder (3.1.4)
     chronic (0.10.2)
@@ -242,6 +244,7 @@ DEPENDENCIES
   airbrake
   better_errors
   binding_of_caller
+  bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails

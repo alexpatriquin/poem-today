@@ -74,4 +74,4 @@ gem 'httparty'
 gem 'airbrake'
 gem 'font-awesome-rails'
 gem 'nokogiri'
-
+gem 'bootstrap-sass'
