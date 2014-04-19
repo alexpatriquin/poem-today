@@ -2,10 +2,7 @@
 <p><%= @poem.poet %></p>
 <p><%= simple_format(@poem.content) %></p>
 
-
-
-
-   <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
-   <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
-   <%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
-   <%= submit_tag "Speak to me", id: "keillorbot" %>
+ <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
+ <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
+ <%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
+ <%= submit_tag "Speak to me", id: "keillorbot" %>
