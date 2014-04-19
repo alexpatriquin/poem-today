@@ -12,6 +12,7 @@ PoemToday::Application.routes.draw do
 
   resources :user_poems, only: :index
   resources :poems, only: :show
+  post 'poems/voice' => 'poems#voice'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

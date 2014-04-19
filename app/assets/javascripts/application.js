@@ -15,25 +15,24 @@
 //= require turbolinks
 //= require_tree .
  
-
+    Twilio.Device.setup(gon.token,{"debug":true});
+ 
     $(document).ready(function() {
-        var token = gon.token
-        Twilio.Device.setup(token,{"debug":true});
-
-        $("#twilio_talk").click(function() {
+        $("#keillorbot").click(function() {
             speak();
         });
     });
  
     function speak() {
-        var dialogue = $("#dialogue").val();
-        var voice = $('input:radio[name=voice]:checked').val();
+        var voice_title = $("#voice-title").val();
+        var voice_poet = $("#voice-poet").val();
+        var voice_content = $("#voice-content").val();
  
-        $('#twilio_talk').attr('disabled', 'disabled');
+        $('#keillorbot').attr('disabled', 'disabled');
  
-        Twilio.Device.connect({ 'dialogue' : dialogue, 'voice' : voice });
+        Twilio.Device.connect({ 'voice_title':voice_title, 'voice_poet':voice_poet, 'voice_content':voice_content });
     }
  
     Twilio.Device.disconnect(function (conn) {
-        $('#twilio_talk').removeAttr('disabled');
+        $('#keillorbot').removeAttr('disabled');
     });
