@@ -30,28 +30,24 @@ class FoundPoetry
       # sleep(rand(60))
       begin
         poem_doc = Nokogiri::HTML(open(uri))
-        db_poem = Poem.create(:title => poem_doc.search("#poem-top > h1").text,
-                              :first_line => clean_text(poem_doc.search("#poem > .poem").text).first,
-                              :content => clean_text(poem_doc.search("#poem > .poem").text).join("\n"),
-                              :poet => poem_doc.search("#poemwrapper > .fullname_search").text)
+        content = clean_text(poem_doc.search("#poem > .poem").text).join("\n")
+        if content.length < 2000
+          db_poem = Poem.create(:title => poem_doc.search("#poem-top > h1").text,
+                                :first_line => clean_text(poem_doc.search("#poem > .poem").text).first,
+                                :content => content,
+                                :poet => poem_doc.search("#poemwrapper > .author > a").text.strip)
 
-        subjects = extract_categories("subject", poem_doc)
-        subjects.each { |name| db_poem.subjects << find_or_create_subject(name.strip) } if !subjects.empty?
+          subjects = extract_categories("subject", poem_doc)
+          subjects.each { |name| db_poem.subjects << find_or_create_subject(name.strip) } if !subjects.empty?
 
-        #holidays are occasions at pf
-        occasions = extract_categories("occasion", poem_doc)
-        occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.empty?
-
+          #holidays are occasions at pf
+          occasions = extract_categories("occasion", poem_doc)
+          occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.empty?
+          puts "Created poem #{poem_url}"
+        end
       rescue
         puts "Could not create #{poem_url}"
         next
-      end
-
-      if !db_poem.persisted?
-        puts "Could not persist #{poem_url}"
-        next
-      else
-        puts "Created poem #{poem_url}"
       end
     end
   end
