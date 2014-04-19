@@ -17,7 +17,7 @@ class TweetPoem
   end
 
   def call_twitter_api
-    num_of_tweets = 5
+    num_of_tweets = 10
     @payload  = TWITTER_CLIENT.search("from:#{@user.twitter_handle}", :result_type => "recent").take(num_of_tweets)
   end
 
@@ -33,9 +33,7 @@ class TweetPoem
       tweet.text.downcase.gsub(/’s|[^a-z\s]/,'').split.uniq.each do |keyword|
         frequency = call_wordnik_api(keyword)
         if !frequency.nil? && frequency > 0 && frequency < 1000
-          infreq_word = Keyword.new(keyword, frequency, source)
-          infreq_word.source_id = tweet.url.to_s
-          @keywords << infreq_word
+          @keywords << Keyword.new(keyword, frequency, source, tweet.url.to_s)
         end
       end
     end
@@ -53,10 +51,11 @@ class TweetPoem
   def match_keywords_to_poems  
     @keywords.each do |keyword|
       keyword.poems << Poem.search_by_occasion(keyword.text).map    { |poem| { :id => poem.id, :match_type => :occasion    }}
+      keyword.poems << Poem.search_by_poet(keyword.text).map       { |poem| { :id => poem.id, :match_type => :poet       }}
       keyword.poems << Poem.search_by_subject(keyword.text).map    { |poem| { :id => poem.id, :match_type => :subject    }}
       keyword.poems << Poem.search_by_title(keyword.text).map      { |poem| { :id => poem.id, :match_type => :title      }}
       keyword.poems << Poem.search_by_first_line(keyword.text).map { |poem| { :id => poem.id, :match_type => :first_line }}
-      # keyword.poems << Poem.search_by_content(keyword.text).map    { |poem| { :id => poem.id, :match_type => :content    }}
+      keyword.poems << Poem.search_by_content(keyword.text).map    { |poem| { :id => poem.id, :match_type => :content    }}
       keyword.poems.flatten!
     end
   end

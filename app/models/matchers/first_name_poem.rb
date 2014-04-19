@@ -23,7 +23,7 @@ class FirstNamePoem
     @keywords = []
     source = :first_name
     @parsed_name.each do |keyword|
-      @keywords << Keyword.new(keyword, 0, source)
+      @keywords << Keyword.new(keyword, 0, source, @user.first_name)
     end 
   end
 

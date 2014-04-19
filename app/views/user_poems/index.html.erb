@@ -8,7 +8,8 @@
       <%= "Match Score: #{upc[0].match_score}" %><br>
       <% if !upc[0].keyword_text.nil? %>
         <%= "Keyword: #{upc[0].keyword_text.capitalize}" %><br>
-        <%= "Keyword Source: #{upc[0].keyword_source.humanize}" %>
+        <%= "Keyword Source: #{upc[0].keyword_source.humanize}" %><br>
+        <%= "Keyword Source Info: #{upc[0].keyword_source_id}" %>
       <% end %>
     </li>
   <% end %>
