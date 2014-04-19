@@ -22,7 +22,7 @@ class PoemMatcher
     @results = []
     
     if user_created_today && @user.first_name
-      first_name_match 
+      first_name_match
     elsif @user.birthday && user_birthday_today 
       birthday_match
       first_name_match

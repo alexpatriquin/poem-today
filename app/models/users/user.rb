@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable, :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  after_create :first_poem
 
   has_many :user_poems
   has_many :poems, :through => :user_poems
@@ -10,4 +11,9 @@ class User < ActiveRecord::Base
 
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
+
+  private 
+    def first_poem
+      PoemMatcher.new(self).match_poem
+    end
 end

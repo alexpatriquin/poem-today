@@ -7,7 +7,7 @@ namespace :fp do
   end
 
   desc "Seed the database with found poetry"
-  task :seed_poems => [:fp_env] do
+  task :seed => [:fp_env] do
     require_relative "found_poetry.rb"
         
       begin

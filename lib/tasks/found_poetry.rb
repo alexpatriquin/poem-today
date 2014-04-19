@@ -43,7 +43,7 @@ class FoundPoetry
         occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.empty?
 
       rescue
-        puts "Could not create #{title}"
+        puts "Could not create #{poem_url}"
         next
       end
 
