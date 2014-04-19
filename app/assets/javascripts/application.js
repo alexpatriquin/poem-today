@@ -18,8 +18,7 @@
 
     $(document).ready(function() {
         var token = gon.token
-
-        Twilio.Device.setup("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzY29wZSI6IiIsImlzcyI6IkFDMTg0ZjQ2ODViMDk4ZjZlNmFmOTc1MzIxMmZlYjJiZWYiLCJleHAiOjEzOTc5MzI1NzF9.mumlG78yo3tqy7WB_0cV02UxlSUBULYZQOWmQcQxgrU",{"debug":true});
+        Twilio.Device.setup(token,{"debug":true});
 
         $("#twilio_talk").click(function() {
             speak();
