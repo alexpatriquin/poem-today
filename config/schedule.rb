@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 2.minutes do 
+every 1.day, :at => '4:30 am' do 
   runner "User.all.each { |u| PoemMailer.daily_email(u).deliver }"
 end
 

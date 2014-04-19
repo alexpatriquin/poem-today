@@ -4,32 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>HERE IS YOUR POEM <%= @user.zipcode %></h1>
-    <p>
-      <%= @poem.title %>
-      <%= @poem.poet %>
-      <%= @poem.content %>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+      <p><%= "Good morning, #{@user.first_name}" %></p>
+      <p>Here is your poem today:</p>
+      <h4><%= @poem.title %></h4>
+      <p><%= "by #{@poem.poet}" %></p>
+      <p><%= simple_format(@poem.content) %></p>
   </body>
 </html>
-
-
-Good morning (if first_name)
-
-The weather for location today:
-
-Forecast. Don't forget to grab an umbrella / enjoy the sunshine / bundle up.
-
-Your tweet "..." yesterday reminds me of a poem, title by poet. 
-The news headline today "..." reminds me of a poem, title by pot.
-Today's forecast reminds me of a poem, title by poet. 
-Happy birthday! Here's a birthday for your special day.
-Merry Christmas / Today is Memorial Day / etc. 
-
-What do you think? Forward to a friend / Tweet / Reply with feedback.
-
-Adjust your settings.
