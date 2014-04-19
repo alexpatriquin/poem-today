@@ -1,5 +1,5 @@
 class UserPoemsController < ApplicationController
-  before_filter before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @user_poems_with_content = {}

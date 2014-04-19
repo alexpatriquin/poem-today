@@ -1,3 +1,17 @@
 <p><%= @poem.title %></p>
 <p><%= @poem.poet %></p>
 <p><%= simple_format(@poem.content) %></p>
+
+<p> 
+    <label for="dialogue">Text to be spoken</label> 
+    <input type="text" id="dialogue" name="dialogue" size="50"> 
+</p> 
+<p> 
+    <label for="voice-male">Male Voice</label> 
+    <input type="radio" id="voice-male" name="voice" value="1" checked="checked"> 
+    <label for="voice-female">Female Voice</label> 
+    <input type="radio" id="voice-female" name="voice" value="2"> 
+</p> 
+<p> 
+    <input type="button" id="twilio_talk" name="submit" value="Speak to me"> 
+</p> 

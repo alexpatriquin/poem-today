@@ -1,10 +1,10 @@
 class Poem < ActiveRecord::Base
-    has_many :user_poems
-    has_many :users, :through => :user_poems
-    has_many :poem_subjects
-    has_many :subjects, :through => :poem_subjects
-    has_many :poem_occasions
-    has_many :occasions, :through => :poem_occasions
+  has_many :user_poems
+  has_many :users, :through => :user_poems
+  has_many :poem_subjects
+  has_many :subjects, :through => :poem_subjects
+  has_many :poem_occasions
+  has_many :occasions, :through => :poem_occasions
 
   include PgSearch
   pg_search_scope :search_by_occasion,    :associated_against => {:occasions => :name},     :using => {:tsearch => {:dictionary => "english"}}
