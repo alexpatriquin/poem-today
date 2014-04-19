@@ -3,17 +3,15 @@ PoemToday::Application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'poems#index', as: :authenticated_root
+      root 'user_poems#index', as: :authenticated_root
     end
     unauthenticated do
       root 'devise/registrations#new', as: :unauthenticated_root
     end
   end 
 
-  resources :users, only: :show do
-    resources :user_poems, only: [:show, :index]
-    
-  end
+  resources :user_poems, only: :index
+  resources :poems, only: :show
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

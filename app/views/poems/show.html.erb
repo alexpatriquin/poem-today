@@ -1,19 +1,7 @@
-<p id="notice"><%= notice %></p>
+this is the poem show page.
 
-<p>
-  <strong>Poet:</strong>
-  <%= @poem.poet %>
-</p>
+hello, this is the user_poems show page.
 
-<p>
-  <strong>Title:</strong>
-  <%= @poem.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @poem.content %>
-</p>
-
-<%= link_to 'Edit', edit_poem_path(@poem) %> |
-<%= link_to 'Back', poems_path %>
+<p><%= @poem.title %></p>
+<p><%= @poem.poet %></p>
+<p><%= simple_format(@poem.content) %></p>

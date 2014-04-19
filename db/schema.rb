@@ -84,14 +84,16 @@ ActiveRecord::Schema.define(version: 20140417011829) do
   end
 
   create_table "user_poems", force: true do |t|
-    t.integer "user_id"
-    t.integer "poem_id"
-    t.integer "match_score"
-    t.string  "keyword_text"
-    t.integer "keyword_frequency"
-    t.string  "keyword_source"
-    t.string  "keyword_source_id"
-    t.string  "match_type"
+    t.integer  "user_id"
+    t.integer  "poem_id"
+    t.integer  "match_score"
+    t.string   "keyword_text"
+    t.integer  "keyword_frequency"
+    t.string   "keyword_source"
+    t.string   "keyword_source_id"
+    t.string   "match_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

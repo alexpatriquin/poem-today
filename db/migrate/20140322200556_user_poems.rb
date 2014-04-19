@@ -9,6 +9,8 @@ class UserPoems < ActiveRecord::Migration
       t.string   :keyword_source
       t.string   :keyword_source_id
       t.string   :match_type
+
+      t.timestamps
     end  
   end
 end

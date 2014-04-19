@@ -244,7 +244,7 @@ DEPENDENCIES
   airbrake
   better_errors
   binding_of_caller
-  bootstrap-sass
+  bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails
@@ -265,7 +265,7 @@ DEPENDENCIES
   rails (= 4.0.3)
   rails_12factor
   rspec-rails
-  sass-rails (~> 4.0.0)
+  sass-rails (>= 3.2)
   sdoc
   simplecov (~> 0.7.1)
   turbolinks
