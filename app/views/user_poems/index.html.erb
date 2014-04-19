@@ -6,10 +6,9 @@
       <%= "#{upc[0].created_at.strftime("%B %d")}" %><br>
       <%= "Match Type: #{upc[0].match_type.capitalize}" %><br>
       <%= "Match Score: #{upc[0].match_score}" %><br>
-      <% if upc[0].match_type.nil? %>
-        <%= "Match Type: #{upc[0].keyword_text}" %><br>
-        <%= "Keyword Frequency: #{upc[0].keyword_frequency}" %><br>
-        <%= "Keyword Source: #{upc[0].keyword_source}" %>
+      <% if !upc[0].keyword_text.nil? %>
+        <%= "Keyword: #{upc[0].keyword_text.capitalize}" %><br>
+        <%= "Keyword Source: #{upc[0].keyword_source.humanize}" %>
       <% end %>
     </li>
   <% end %>

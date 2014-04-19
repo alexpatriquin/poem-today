@@ -18,14 +18,20 @@ class PoemMatcher
     @user = user    
   end
 
+  def first_name_match
+    @results = []
+    first_name_matches = FirstNamePoem.new(@user).build_collection
+    @results << PoemScorer.new.score_results(first_name_matches)
+    @results.flatten!
+    ensure_not_empty
+    save_top_result
+  end
+
   def match_poem
     @results = []
     
-    if user_created_today && @user.first_name
-      first_name_match
-    elsif @user.birthday && user_birthday_today 
+    if @user.birthday && user_birthday_today 
       birthday_match
-      first_name_match
     else holiday_today
       holiday_match
     end
@@ -39,21 +45,12 @@ class PoemMatcher
     save_top_result
   end
 
-  def user_created_today
-    @user.created_at.month == Date.today.month && @user.created_at.day == Date.today.day
-  end
-
   def user_birthday_today
     @user.birthday == Date.today
   end
   
   def holiday_today
     HOLIDAYS_2014.values.include?(Date.today.to_s)
-  end
-
-  def first_name_match
-    first_name_matches = FirstNamePoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(first_name_matches)
   end
 
   def birthday_match

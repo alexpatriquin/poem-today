@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   after_validation :geocode, :if => :location_changed?
 
   private 
-    def first_poem
-      PoemMatcher.new(self).match_poem
-    end
+  def first_poem
+    PoemMatcher.new(self).first_name_match
+  end
 end
