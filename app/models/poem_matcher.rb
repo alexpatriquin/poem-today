@@ -14,14 +14,22 @@ class PoemMatcher
     "thanksgiving"      => "2014-11-27" 
   }
 
+  POEM_MATCHERS = {
+   "first_name" => FirstNamePoem,
+   "birthday"   => BirthdayPoem,
+   "holiday"    => HolidayPoem,
+   "forecast"   => ForecastPoem,
+   "news"       => NewsPoem,
+   "tweet"      => TweetPoem
+  }
+
   def initialize(user)
     @user = user    
   end
 
   def first_name_match
     @results = []
-    first_name_matches = FirstNamePoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(first_name_matches)
+    data_source_match("first_name")
     @results.flatten!
     ensure_not_empty
     save_top_result
@@ -31,14 +39,14 @@ class PoemMatcher
     @results = []
     
     if @user.birthday && user_birthday_today 
-      birthday_match
+      data_source_match("birthday")
     else holiday_today
-      holiday_match
+      data_source_match("holiday")
     end
 
-    forecast_match if @user.location != nil
-    news_match
-    tweet_match if @user.twitter_handle != nil
+    data_source_match("forecast") if @user.location != nil
+    data_source_match("news")
+    data_source_match("tweet") if @user.twitter_handle != nil
 
     @results.flatten!
     ensure_results
@@ -53,29 +61,9 @@ class PoemMatcher
     HOLIDAYS_2014.values.include?(Date.today.to_s)
   end
 
-  def birthday_match
-    birthday_matches = BirthdayPoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(birthday_matches)
-  end
-
-  def holiday_match
-    holiday_matches = HolidayPoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(holiday_matches)
-  end
-
-  def forecast_match
-    forecast_matches = ForecastPoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(forecast_matches)
-  end
-
-  def news_match
-    news_matches = NewsPoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(news_matches)
-  end
-
-  def tweet_match
-    tweet_matches  = TweetPoem.new(@user).build_collection
-    @results << PoemScorer.new.score_results(tweet_matches)
+  def data_source_match(data_source)
+    poem_matches = POEM_MATCHERS[data_source].new(@user).build_collection
+    @results << PoemScorer.new.score_results(poem_matches)
   end
 
   def ensure_results
