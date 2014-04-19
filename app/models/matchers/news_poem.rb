@@ -7,16 +7,12 @@ class NewsPoem
   end
 
   def build_collection
-    @matches = []
-
     call_nyt_api
     take_top_articles
     save_top_articles
-
     add_to_keyword_collection
-    match_keywords_to_poems
-    save_poems_to_results
-    @matches
+    
+    KeywordSearch.new(@keywords).match_keywords_to_poems
   end
 
   def call_nyt_api
@@ -58,33 +54,6 @@ class NewsPoem
     parsed_uri = URI.parse(uri)
     response = Net::HTTP.get_response(parsed_uri)
     JSON.parse(response.body)["totalCount"]
-  end
-
-  def match_keywords_to_poems  
-    @keywords.each do |keyword|
-      keyword.poems << Poem.search_by_occasion(keyword.text).map    { |poem| { :id => poem.id, :match_type => :occasion    }}
-      keyword.poems << Poem.search_by_poet(keyword.text).map       { |poem| { :id => poem.id, :match_type => :poet       }}
-      keyword.poems << Poem.search_by_subject(keyword.text).map    { |poem| { :id => poem.id, :match_type => :subject    }}
-      keyword.poems << Poem.search_by_title(keyword.text).map      { |poem| { :id => poem.id, :match_type => :title      }}
-      keyword.poems << Poem.search_by_first_line(keyword.text).map { |poem| { :id => poem.id, :match_type => :first_line }}
-      keyword.poems << Poem.search_by_content(keyword.text).map    { |poem| { :id => poem.id, :match_type => :content    }}
-      keyword.poems.flatten!
-    end
-  end
-
-  def save_poems_to_results
-    @keywords.each do |keyword|
-      keyword.poems.each do |poem|
-        poem_hash                      = {}
-        poem_hash[:poem_id]            = poem[:id]
-        poem_hash[:match_type]         = poem[:match_type]        
-        poem_hash[:keyword_text]       = keyword.text
-        poem_hash[:keyword_frequency]  = keyword.frequency
-        poem_hash[:keyword_source]     = keyword.source
-        poem_hash[:keyword_source_id]  = keyword.source_id
-        @matches << poem_hash
-      end
-    end
   end
 
 end
