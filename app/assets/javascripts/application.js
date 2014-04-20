@@ -15,7 +15,8 @@
 //= require turbolinks
 //= require_tree .
  
-    Twilio.Device.setup(gon.token,{"debug":true});
+    var token = $('#token').data('token')
+    Twilio.Device.setup(token,{"debug":true});
  
     $(document).ready(function() {
         $("#keillorbot").click(function() {
