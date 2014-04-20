@@ -38,7 +38,7 @@ class PoemMatcher
   def match_poem
     @results = []
     
-    if @user.birthday && user_birthday_today 
+    if @user.birthday && user_birthday_today
       data_source_match("birthday")
     else holiday_today
       data_source_match("holiday")
@@ -54,7 +54,7 @@ class PoemMatcher
   end
 
   def user_birthday_today
-    @user.birthday == Date.today
+    (@user.birthday.month == Date.today.month) && (@user.birthday.day == Date.today.day)
   end
   
   def holiday_today

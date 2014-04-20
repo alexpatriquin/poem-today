@@ -12,9 +12,9 @@ class PoemScorer
   def score_by_keyword_source(result)
     case result[:keyword_source]
     when :twitter
-      result[:match_score] += 60
+      result[:match_score] += 40
     when :news
-      result[:match_score] += 40  
+      result[:match_score] += 30  
     when :forecast
       result[:match_score] += 20
     end
@@ -22,7 +22,9 @@ class PoemScorer
 
   def score_by_match_type(result)
     case result[:match_type]
-    when :occasion || :subject || :title || :poet
+    when :occasion || :subject || :poet
+      result[:match_score] += 100
+    when :title
       result[:match_score] += 50
     when :first_line
       result[:match_score] += 30  
