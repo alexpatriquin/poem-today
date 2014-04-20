@@ -4,10 +4,13 @@ class PoemsController < ApplicationController
   include Webhookable
 
   def show
-    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
-    # capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
-    # gon.token = capability.generate
     @poem = Poem.find(params[:id])
+    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
+    begin
+      capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
+      gon.token = capability.generate
+    rescue
+    end
   end
 
   def voice
