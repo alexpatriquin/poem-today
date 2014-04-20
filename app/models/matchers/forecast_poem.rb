@@ -16,7 +16,11 @@ class ForecastPoem
   end
 
   def call_forecastio_api(lat,long)
-    @payload = ForecastIO.forecast(lat,long)
+    uri = "https://api.forecast.io/forecast/#{ENV["FORECAST_IO_APIKEY"]}/#{lat},#{long}"
+    uri = "http://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json?api-key=#{ENV["NYT_APIKEY"]}"
+    parsed_uri = URI.parse(uri)
+    response = Net::HTTP.get_response(parsed_uri)
+    @payload = JSON.parse(response.body)
   end
 
   def save_forecast_summary
