@@ -4,8 +4,10 @@ class PoemsController < ApplicationController
   include Webhookable
 
   def show
+    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
+    capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
+    gon.token = capability.generate
     @poem = Poem.find(params[:id])
-    # connect_to_twilio
   end
 
   def voice
@@ -18,11 +20,9 @@ class PoemsController < ApplicationController
     render_twiml response
   end
 
-  private 
-  def connect_to_twilio
-    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
-    capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
-    gon.token = capability.generate
-  end
+  # private 
+  # def connect_to_twilio
+
+  # end
 
 end
