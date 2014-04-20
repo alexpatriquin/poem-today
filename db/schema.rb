@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419023552) do
+ActiveRecord::Schema.define(version: 20140417011829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,15 +21,6 @@ ActiveRecord::Schema.define(version: 20140419023552) do
     t.string   "summary"
     t.integer  "min_temp"
     t.integer  "max_temp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "keywords", force: true do |t|
-    t.string   "text"
-    t.integer  "frequency"
-    t.string   "source"
-    t.string   "source_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
