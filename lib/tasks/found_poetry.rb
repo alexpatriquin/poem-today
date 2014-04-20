@@ -9,8 +9,7 @@ class FoundPoetry
     i = 0
     while i < number_of_pages
       page_number = rand(1..total_pages)
-      binding.pry
-      if !PageNumber.where(number: page_number).exists?
+      unless !PageNumber.where(number: page_number).exists?
         uri = "http://www.poetryfoundation.org/searchresults?page=#{page_number}"
         # sleep(rand(60))
         serp = Nokogiri::HTML(open(uri))
