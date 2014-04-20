@@ -5,7 +5,7 @@ class PoemsController < ApplicationController
 
   def show
     @poem = Poem.find(params[:id])
-    connect_to_twilio
+    # connect_to_twilio
   end
 
   def voice
