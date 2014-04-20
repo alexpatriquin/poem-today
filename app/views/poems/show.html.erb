@@ -5,11 +5,6 @@
 
 
 
-<%= content_tag "div", id: "token", data: {token: @token } do %>
-<% end %>
-
-
-
  <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
  <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
  <%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
