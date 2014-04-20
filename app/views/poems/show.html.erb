@@ -3,11 +3,9 @@
 <p><%= simple_format(@poem.content) %></p>
 
 
-<!-- 
-<% content_tag "div", id: "token", data: {token: @token } do %>
-<% end %>
- -->
 
+<%= content_tag "div", id: "token", data: {token: @token } do %>
+<% end %>
 
  <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
  <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>

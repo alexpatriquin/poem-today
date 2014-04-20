@@ -6,7 +6,7 @@ class PoemsController < ApplicationController
   def show
     @poem = Poem.find(params[:id])
     capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
-    # capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
+    capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
     # @token = capability.generate
   end
 
