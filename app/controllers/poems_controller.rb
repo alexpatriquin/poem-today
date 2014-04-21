@@ -40,12 +40,12 @@ class PoemsController < ApplicationController
   end
 
   def ephemeral
-    if session[:ephemeral_poem] && session[:ephemeral_poem].count < 12
+    if session[:ephemeral_poem] && session[:ephemeral_poem].count < 5
       flash[:notice] = "You do not have enough words for an ephemeral poem yet."
       redirect_to authenticated_root_path
     else
       @poem_title = session[:ephemeral_poem].first.titleize
-      @poem = session[:ephemeral_poem].join(' ').humanize
+      @poem = Ephemeral.new.create_ephemeral_poem(session[:ephemeral_poem])
       session[:ephemeral_poem] = []
     end
   end
