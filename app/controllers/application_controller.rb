@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def ephemeral_poem?
-    session[:ephemeral_poem] && session[:ephemeral_poem].count > 3
+    session[:ephemeral_poem] && session[:ephemeral_poem].count > 2
   end
 end

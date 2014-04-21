@@ -54,7 +54,7 @@ class PoemsController < ApplicationController
       @poem_title = session[:ephemeral_poem].values.join(' ')
       @poem_poet = current_user.first_name || "You"
       @poem_content = []
-      7.times { @poem_content << markov.generate_1_sentences }
+      3.times { @poem_content << markov.generate_1_sentences }
       markov.clear!
       session[:ephemeral_poem] = {}
     end
