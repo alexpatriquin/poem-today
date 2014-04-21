@@ -1,12 +1,5 @@
 <div id="signin_nav_links">
   <% if user_signed_in? %>
-
-      <% if !current_user.email.empty? %> 
-        Logged in as <strong><%= current_user.email %></strong>. 
-      <% else %>
-        Logged in as <strong><%= current_user.username %></strong>.
-      <% end %>
-
     <%= link_to 'Edit profile', edit_user_registration_path %> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete %>
   <% else %>

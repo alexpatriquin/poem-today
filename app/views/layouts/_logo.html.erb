@@ -1,6 +1,1 @@
-
-<% if user_signed_in? %>
-  <%= link_to "PoemToday", authenticated_root_path, id: 'logo' %>
-<% else %>
-  <%= link_to "PoemToday", unauthenticated_root_path, id: 'logo' %>
-<% end %>
+<%= link_to (image_tag 'icon_31093.png', size: "35", id: 'logo-png'), authenticated_root_path %>

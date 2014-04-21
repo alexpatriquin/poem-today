@@ -14,7 +14,14 @@
 
 @import "bootstrap";
 
-$baseFontFamily: 'Vollkorn';
+$font-stack: "Old Standard TT";
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-stack;
+}
+p, div {
+    font-family: $font-stack;
+}
 
 #redstripe {
     height: 5px;
@@ -40,8 +47,14 @@ $baseFontFamily: 'Vollkorn';
 #poem-body {
 width: 75%;
 margin: 100px auto;
-}
+    p, div {
+        font-family: $font-stack;
+        font-weight: 400;
+        font-size: 1em;
+    }
 
+}
+// Gentium Book Basic
 
 
 
