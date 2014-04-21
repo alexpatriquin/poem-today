@@ -1,21 +1,26 @@
-<%= image_tag(@poem.image_url) %>
-<p><%= @poem.title %></p>
-<p><%= @poem.poet %></p>
-<p>
-  <% @poem.content.split("\n").each do |line| %>
-      <% line.split.each do |word| %>
-        <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post %>
+
+<div id="poem">
+  <div id="poem-body">
+  <%= image_tag @poem.image_url, id: 'poem-bg' %>
+  <p><%= @poem.title %></p>
+  <p><%= @poem.poet %></p>
+  <p>
+    <% @poem.content.split("\n").each do |line| %>
+        <% line.split.each do |word| %>
+          <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post %>
+      <% end %>
+      <br>
     <% end %>
-    <br>
+  </p>
+
+
+  <%= content_tag "div", id: "token", data: {token: @token } do %>
   <% end %>
-</p>
+  <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
+  <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
+  <%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
+  <%= button_tag "Speak to me", id: "keillorbot" %>
 
+</div>
 
-<%= content_tag "div", id: "token", data: {token: @token } do %>
-<% end %>
-<%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
-<%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
-<%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
-<%= button_tag "Speak to me", id: "keillorbot" %>
-
-
+</div>

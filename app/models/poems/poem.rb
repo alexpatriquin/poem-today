@@ -16,7 +16,7 @@ class Poem < ActiveRecord::Base
 
   def image_url
     book = GoogleBooks.search(self.isbn).first
-    book_image = book.image_link(:zoom => 4)
+    book_image = book.image_link(:zoom => 2)
   end
 
 end

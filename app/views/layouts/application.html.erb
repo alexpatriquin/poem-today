@@ -5,9 +5,12 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "//static.twilio.com/libs/twiliojs/1.1/twilio.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+  
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="body">
+  <div id="redstripe"></div>
 
 <%= render 'layouts/navigation' %>
 <%= render 'layouts/notices' %>

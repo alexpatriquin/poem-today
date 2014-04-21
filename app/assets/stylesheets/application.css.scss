@@ -14,6 +14,42 @@
 
 @import "bootstrap";
 
+
+@font-family-base {
+    Vollkorn
+}
+
+#redstripe {
+    height: 5px;
+    background-color: #90220D;
+}
+
+#navbar {
+    height: 50px;
+    background-color: #444;
+
+}
+
+#body {
+    background-image:url('bg-grit.jpg');
+}
+
+#poem-bg {
+  float: right;
+
+}
+
+
+#poem-body {
+width: 75%;
+margin: 100px auto;
+}
+
+
+
+
+
+
 #signin_nav_links {
   float: right;
 }
