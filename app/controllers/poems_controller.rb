@@ -7,7 +7,7 @@ class PoemsController < ApplicationController
     @poem = Poem.find(params[:id])
     capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
     capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
-    # @token = capability.generate
+    @token = capability.generate
     #why does this break production???
     #breaks even when @token isn't referenced in views or js...
   end

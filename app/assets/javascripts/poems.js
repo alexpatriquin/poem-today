@@ -1,23 +1,21 @@
- 
-    var token = $('#token').data('token')
+$(document).ready(function() {
+    var token = $('#token').data('token');
     Twilio.Device.setup(token,{"debug":true});
- 
-    $(document).ready(function() {
-        $("#keillorbot").click(function() {
-            speak();
-        });
-    });
- 
+    $("#keillorbot").click(function() {
+        speak();
+    });    
+
     function speak() {
-        var poem_title = $("#poem-title").val();
-        var poem_poet = $("#poem-poet").val();
-        var poem_content = $("#poem-content").val();
+        var voice_title = $("#voice-title").val();
+        var voice_poet = $("#voice-poet").val();
+        var voice_content = $("#voice-content").val();
  
         $('#keillorbot').attr('disabled', 'disabled');
  
-        Twilio.Device.connect({ 'poem_title':poem_title, 'poem_poet':poem_poet, 'poem_content':poem_content });
+        Twilio.Device.connect({ 'voice_title':voice_title, 'voice_poet':voice_poet, 'voice_content':voice_content });
     }
  
     Twilio.Device.disconnect(function (conn) {
         $('#keillorbot').removeAttr('disabled');
     });
+});
