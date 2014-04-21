@@ -40,7 +40,7 @@ class PoemsController < ApplicationController
   end
 
   def ephemeral
-    if session[:ephemeral_poem] && session[:ephemeral_poem].count < 3
+    if session[:ephemeral_poem] && session[:ephemeral_poem].count < 12
       flash[:notice] = "You do not have enough words for an ephemeral poem yet."
       redirect_to authenticated_root_path
     else

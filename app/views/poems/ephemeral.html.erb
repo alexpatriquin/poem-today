@@ -1,4 +1,8 @@
-<p><%= @poem_title %><p>
-<p><%= "by #{current_user.first_name}" %><p>
-<p><%= @poem %><p>
+<p id="poem-title"><%= @poem_title %><p>
+<p id="poem-poem"><%= "by #{current_user.first_name}" %><p>
+<p id="poem-content"><%= @poem %><p>
 
+
+<%= content_tag "div", id: "token", data: {token: @token } do %>
+<% end %>
+ <%= button_tag "Speak to me", id: "keillorbot" %>
