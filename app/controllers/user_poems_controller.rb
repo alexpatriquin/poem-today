@@ -2,7 +2,7 @@ class UserPoemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if session[:ephemeral_poem] && session[:ephemeral_poem].count >= 5
+    if ephemeral_poem?
       flash.now[:notice] = %Q[You've creted a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
     end
 
