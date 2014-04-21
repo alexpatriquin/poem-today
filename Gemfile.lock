@@ -75,6 +75,7 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    flickraw (0.9.8)
     font-awesome-rails (4.0.3.1)
       railties (>= 3.2, < 5.0)
     forecast_io (2.0.0)
@@ -85,6 +86,8 @@ GEM
     gon (5.0.4)
       actionpack (>= 2.3.0)
       json
+    googlebooks (0.0.8)
+      httparty
     hashie (2.0.5)
     hike (1.2.3)
     htmlentities (4.3.1)
@@ -261,10 +264,12 @@ DEPENDENCIES
   devise
   factory_girl_rails
   figaro
+  flickraw
   font-awesome-rails
   forecast_io
   geocoder
   gon
+  googlebooks
   httparty
   jbuilder (~> 1.2)
   jquery-rails

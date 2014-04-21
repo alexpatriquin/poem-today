@@ -1,6 +1,6 @@
 class BirthdayPoem
 
-  BIRTHDAY_TERMS = ["birthday", "birthdays", "birth", "birth & birthdays"]
+  BIRTHDAY_TERMS = ["birthday", "birthdays", "birthdays"]
 
   def initialize(user)
     @user = user
