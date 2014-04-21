@@ -29,7 +29,7 @@ class PoemScorer
     when :first_line
       result[:match_score] += 30  
     when :content
-      result[:match_score] += 1
+      result[:match_score] += 10
     end
   end
 

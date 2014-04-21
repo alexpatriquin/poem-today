@@ -1,5 +1,6 @@
 PoemToday::Application.routes.draw do
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations", sessions: "sessions" }
+
 
   devise_scope :user do
     authenticated :user do
@@ -13,6 +14,8 @@ PoemToday::Application.routes.draw do
   resources :user_poems, only: :index
   resources :poems, only: :show
   post 'poems/voice' => 'poems#voice'
+  post 'poems/search' => 'poems#search'
+  get  '/ephemeral' => 'poems#ephemeral'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

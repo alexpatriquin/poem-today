@@ -1,6 +1,15 @@
-<p id="poem,-title"><%= @poem.title %></p>
-<p id="poem-title"><%= @poem.poet %></p>
-<p id="poem-title"><% simple_format(@poem.content) %></p>
+<p id="poem-title"><%= @poem.title %></p>
+<p id="poem-poem"><%= @poem.poet %></p>
+<p id="poem-content">
+  <% @poem.content.split("\n").each do |line| %>
+      <% line.split.each do |word| %>
+        <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post %>
+    <% end %>
+    <br>
+  <% end %>
+</p>
+
+
 
 <%= content_tag "div", id: "token", data: {token: @token } do %>
 <% end %>

@@ -18,7 +18,33 @@ class PoemsController < ApplicationController
       r.Say "by #{params[:voice_poet]}"
       r.Say "#{params[:voice_content]}"
     end
-
     render_twiml response
   end
+
+  def search
+    clicked_word = params[:clicked_word].downcase.gsub(/’s|[^a-z\s]/,'')
+    poem_kw = []
+    poem_kw << Keyword.new(clicked_word,0,:from_poem,:user)
+    results = KeywordSearch.new(poem_kw).match_keywords_to_poems
+    results.delete_if { |result| result[:poem_id] == params[:from_poem].to_i }
+    if results.empty?
+      redirect_to authenticated_root_path, notice: "Perhaps another."
+    else
+      session[:ephemeral_poem] << clicked_word
+      session[:ephemeral_poem].uniq
+      redirect_to poem_path(results.first[:poem_id]), notice: "Another poem with the word \"#{clicked_word}\"."
+    end
+  end
+
+  def ephemeral
+    if session[:ephemeral_poem].count < 3
+      flash[:notice] = "You do not have enough words for an ephemeral poem yet."
+      redirect_to authenticated_root_path
+    else
+      @poem_title = session[:ephemeral_poem].first.titleize
+      @poem = session[:ephemeral_poem].join(' ').humanize
+      session[:ephemeral_poem] = []
+    end
+  end
+
 end
