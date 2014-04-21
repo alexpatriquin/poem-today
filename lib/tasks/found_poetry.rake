@@ -11,7 +11,7 @@ namespace :fp do
     require_relative "found_poetry.rb"
         
       begin
-        poems = FoundPoetry.new.get_poem_serps(20000)
+        poems = FoundPoetry.new.get_poem_serps(200)
       rescue LoadError
         puts "Couldn't get poems"
         next
