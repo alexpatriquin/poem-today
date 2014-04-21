@@ -20,7 +20,6 @@ class PoemsController < ApplicationController
   end
 
   def search
-    binding.pry
     clicked_word = params[:clicked_word].downcase.gsub(/’s|[^a-z\s]/,'')
     from_poem_id = params[:from_poem].to_i
     poem_kw = []
