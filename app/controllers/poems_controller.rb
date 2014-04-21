@@ -30,6 +30,9 @@ class PoemsController < ApplicationController
     if results.empty?
       redirect_to authenticated_root_path, notice: "Perhaps another."
     else
+      if session[:ephemeral_poem].nil?
+        session[:ephemeral_poem] = []
+      end
       session[:ephemeral_poem] << clicked_word
       session[:ephemeral_poem].uniq
       redirect_to poem_path(results.first[:poem_id]), notice: "Another poem with the word \"#{clicked_word}\"."
@@ -37,7 +40,7 @@ class PoemsController < ApplicationController
   end
 
   def ephemeral
-    if session[:ephemeral_poem].count < 3
+    if session[:ephemeral_poem] && session[:ephemeral_poem].count < 3
       flash[:notice] = "You do not have enough words for an ephemeral poem yet."
       redirect_to authenticated_root_path
     else
