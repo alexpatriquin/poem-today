@@ -4,30 +4,29 @@ class FoundPoetry
   def get_poem_serps(number_of_poems)
     number_of_pages = number_of_poems / 20
     total_pages = 576
-    @poem_urls = []
 
     i = 0
     while i < number_of_pages
       page_number = rand(1..total_pages)
-      unless !PageNumber.where(number: page_number).exists?
+      if !PageNumber.where(number: page_number).exists?
+        @poem_urls = []
         uri = "http://www.poetryfoundation.org/searchresults?page=#{page_number}"
-        # sleep(rand(60))
         serp = Nokogiri::HTML(open(uri))
         serp.search("a.title").each do |a| 
           @poem_urls << a.attribute("href").value 
         end
+        @poem_urls.delete_if { |poem_url| poem_url.include?("poetrymagazine") }
+        puts "Scraping poems from page number ##{page_number}"
+        scrape_poems(@poem_urls)
         PageNumber.create(number: page_number)
         i += 1
       end
     end
-    @poem_urls.delete_if { |poem_url| poem_url.include?("poetrymagazine") }
-    scrape_poems(@poem_urls)
   end
 
   def scrape_poems(poem_urls)
     poem_urls.each do |poem_url|
       uri = "http://www.poetryfoundation.org#{poem_url}"
-      # sleep(rand(60))
       begin
         poem_doc = Nokogiri::HTML(open(uri))
         content = clean_text(poem_doc.search("#poem > .poem").text).join("\n")
@@ -43,7 +42,7 @@ class FoundPoetry
           #holidays are occasions at pf
           occasions = extract_categories("occasion", poem_doc)
           occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.empty?
-          puts "Created poem #{poem_url}"
+          puts "Created #{poem_url}"
         end
       rescue
         puts "Could not create #{poem_url}"
