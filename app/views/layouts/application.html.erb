@@ -2,15 +2,16 @@
 <html>
 <head>
   <title>PoemToday</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "//static.twilio.com/libs/twiliojs/1.1/twilio.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= favicon_link_tag 'icon_31093.png' %>
   <%= csrf_meta_tags %>
   <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
-<body id="body pace pace-progress">
-<br>
+<body>
+  <div id="redstripe"></div>
+  <br>
 
 <%= render 'layouts/navigation' %>
 <%= render 'layouts/notices' %>

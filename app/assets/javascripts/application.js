@@ -10,10 +10,14 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require pace
 //= require jquery
 //= require jquery_ujs
-//= require pace
 //= require poems
 //= require turbolinks
 //= require_self
 //= require_tree .
+
+$(document).ready(function() {  
+    $("#redstripe").fadeIn(1000);
+});
