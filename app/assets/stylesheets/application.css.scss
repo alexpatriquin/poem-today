@@ -32,12 +32,23 @@ a {
     }
 }
 
+progress {  
+    border: 0;
+    height: 5px;  
+}  
 
-
-#redstripe {
-    height: 5px;
+progress::-webkit-progress-bar {  
+    background-color: none;
+}  
+progress::-webkit-progress-value {  
     background-color: $maroon;
-}
+}  
+progress::-moz-progress-bar {  
+    background-color: none;
+}  
+
+
+
 
 #logo-png {
     color: $maroon;
