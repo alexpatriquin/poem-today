@@ -37,14 +37,14 @@ class PoemsController < ApplicationController
     results = KeywordSearch.new(poem_kw).match_keywords_to_poems
     results.delete_if { |result| result[:poem_id] == from_poem_id }
     if results.empty?
-      redirect_to authenticated_root_path
+      redirect_to Poem.find(from_poem_id), notice: "No poems with \"#{clicked_word}\""
     else
       if session[:ephemeral_poem].nil?
         session[:ephemeral_poem] = {}
       end
       session[:ephemeral_poem][from_poem_id] = clicked_word
       if ephemeral_poem?
-        redirect_to poem_path(results.first[:poem_id]), notice: %Q[You've created a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
+        redirect_to poem_path(results.first[:poem_id]), notice: %Q[You've created a new <a href="#{ephemeral_path}"> poem</a>.].html_safe
       else
         redirect_to poem_path(results.first[:poem_id])
       end
@@ -54,7 +54,7 @@ class PoemsController < ApplicationController
 
   def ephemeral
     if !ephemeral_poem?
-      flash[:notice] = "Your ephemeral poem has disappeared."
+      flash[:notice] = "Your poem is gone."
       redirect_to authenticated_root_path
     else
       markov = MarkyMarkov::TemporaryDictionary.new
