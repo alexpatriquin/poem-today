@@ -10,7 +10,7 @@ class PoemsController < ApplicationController
     @token = capability.generate
 
     if session[:ephemeral_poem].nil? || session[:ephemeral_poem].empty?
-      @poem_image_url = ""
+      @poem_image_url = image_url(@poem.title.split.first)
     else
       @poem_image_url = image_url(session[:ephemeral_poem].values.last)
     end
@@ -39,10 +39,10 @@ class PoemsController < ApplicationController
         session[:ephemeral_poem] = {}
       end
       session[:ephemeral_poem][from_poem_id] = clicked_word
-      session[:ephemeral_poem].keys.uniq
-      session[:ephemeral_poem].values.uniq
+      # session[:ephemeral_poem].keys.uniq
+      # session[:ephemeral_poem].values.uniq
       if ephemeral_poem?
-        redirect_to poem_path(results.first[:poem_id]), notice: %Q[You've creted a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
+        redirect_to poem_path(results.first[:poem_id]), notice: %Q[You've created a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
       else
         redirect_to poem_path(results.first[:poem_id]), notice: "Another poem with the word \"#{clicked_word}\"."
       end
@@ -57,11 +57,11 @@ class PoemsController < ApplicationController
     else
       markov = MarkyMarkov::TemporaryDictionary.new
       session[:ephemeral_poem].keys.each { |poem_id| markov.parse_string(Poem.find(poem_id).content) }
-      @poem_image_url = image_url(session[:ephemeral_poem].values.last)
       @poem_title = session[:ephemeral_poem].values.join(' ')
       @poem_poet = current_user.first_name || "You"
       @poem_content = []
       3.times { @poem_content << markov.generate_1_sentences }
+      @poem_image_url = image_url(@poem_content.first.split(' ').first)
       markov.clear!
       session[:ephemeral_poem] = {}
     end
@@ -70,10 +70,8 @@ class PoemsController < ApplicationController
   def image_url(keyword)
     FlickRaw.api_key = ENV["FLICKR_API_KEY"]
     FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
-    binding.pry
-    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "interestingness-desc", "per_page" => 1).first
+    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance", "per_page" => 1).first
     @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
-    
   end
 
 end
