@@ -59,7 +59,7 @@ class PoemsController < ApplicationController
     else
       markov = MarkyMarkov::TemporaryDictionary.new
       session[:ephemeral_poem].keys.each { |poem_id| markov.parse_string(Poem.find(poem_id).content) }
-      @poem_title = session[:ephemeral_poem].values.join(' ')
+      @poem_title = session[:ephemeral_poem].values[-4..-1].join(' ')
       @poem_content = []
       3.times { @poem_content << markov.generate_1_sentences }
       @poem_keyword = @poem_content.first.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')

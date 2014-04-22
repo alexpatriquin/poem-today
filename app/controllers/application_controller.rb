@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ephemeral_poem?
-    session[:ephemeral_poem] && session[:ephemeral_poem].count > 5
+    session[:ephemeral_poem] && session[:ephemeral_poem].count > 5 #minimum is 4
   end
 
 end
