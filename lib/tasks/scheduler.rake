@@ -11,6 +11,7 @@ namespace :pt do
     User.all.each do |u| 
       begin
         PoemMailer.daily_email(u).deliver 
+        puts "Sent email to #{u.email}"
       rescue
         puts "Couldn't send email to #{u.email}"
         next

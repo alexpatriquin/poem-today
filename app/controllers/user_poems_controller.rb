@@ -3,7 +3,7 @@ class UserPoemsController < ApplicationController
 
   def index
     if ephemeral_poem?
-      flash.now[:notice] = %Q[You've creted a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
+      flash.now[:notice] = %Q[You've creted a new <a href="#{ephemeral_path}"> poem</a>.].html_safe
     end
 
     @user_poems_with_content = {}
