@@ -1,20 +1,13 @@
-<%= image_tag @poem_image_url, id: 'poem-bg' %>
-
-<p><%= @poem_title %></p>
-<p><%= @poem_poet %></p>
+<%= render 'poem_image' %>
+<h2 id="poem-title"><%= @poem_title %></h2><%= button_tag fa_icon("volume-up lg"), id: "keillorbot" %>
+<br>
 <p>
   <% @poem_content.each do |line| %>
       <% line.split.each do |word| %>
-        <%= link_to word, poems_search_path(clicked_word:word, from_poem:1), method: :post %>
+        <%= link_to word, poems_search_path(clicked_word:word, from_poem:1), method: :post, class: "poem-word" %>
     <% end %>
     <br>
   <% end %>
 </p>
 
-<%= content_tag "div", id: "token", data: {token: @token } do %>
-<% end %>
-<%= hidden_field_tag "title", "#{@poem_title}", id: "voice-title" %>
-<%= hidden_field_tag "poet", "#{@poem_poet}", id: "voice-poet" %>
-<%= hidden_field_tag "content", "#{@poem_content}", id: "voice-content" %>
-<%= button_tag "Speak to me", id: "keillorbot" %>
-
+<%= render 'voice_params' %>

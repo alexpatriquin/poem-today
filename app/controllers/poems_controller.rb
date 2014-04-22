@@ -9,11 +9,15 @@ class PoemsController < ApplicationController
     capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
     @token = capability.generate
 
-    if session[:ephemeral_poem].nil? || session[:ephemeral_poem].empty?
-      @poem_image_url = image_url(@poem.title.split.first)
+    if !session[:ephemeral_poem].nil? && !session[:ephemeral_poem].empty?
+      @poem_keyword = session[:ephemeral_poem].values.last
+    elsif params[:keyword]
+      @poem_keyword = params[:keyword] #from the daily email
     else
-      @poem_image_url = image_url(session[:ephemeral_poem].values.last)
+      @poem_keyword = @poem.first_line.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
     end
+
+    @poem_image_url = image_url(@poem_keyword) 
   end
 
   def voice
@@ -33,18 +37,16 @@ class PoemsController < ApplicationController
     results = KeywordSearch.new(poem_kw).match_keywords_to_poems
     results.delete_if { |result| result[:poem_id] == from_poem_id }
     if results.empty?
-      redirect_to authenticated_root_path, notice: "Perhaps another."
+      redirect_to authenticated_root_path
     else
       if session[:ephemeral_poem].nil?
         session[:ephemeral_poem] = {}
       end
       session[:ephemeral_poem][from_poem_id] = clicked_word
-      # session[:ephemeral_poem].keys.uniq
-      # session[:ephemeral_poem].values.uniq
       if ephemeral_poem?
         redirect_to poem_path(results.first[:poem_id]), notice: %Q[You've created a new <a href="#{ephemeral_path}">ephemeral poem</a>.].html_safe
       else
-        redirect_to poem_path(results.first[:poem_id]), notice: "Another poem with the word \"#{clicked_word}\"."
+        redirect_to poem_path(results.first[:poem_id])
       end
     end
 
@@ -58,10 +60,13 @@ class PoemsController < ApplicationController
       markov = MarkyMarkov::TemporaryDictionary.new
       session[:ephemeral_poem].keys.each { |poem_id| markov.parse_string(Poem.find(poem_id).content) }
       @poem_title = session[:ephemeral_poem].values.join(' ')
-      @poem_poet = current_user.first_name || "You"
       @poem_content = []
       3.times { @poem_content << markov.generate_1_sentences }
-      @poem_image_url = image_url(@poem_content.first.split(' ').first)
+
+
+      @poem_keyword = @poem_content.first.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
+
+      @poem_image_url = image_url(@poem_keyword)
       markov.clear!
       session[:ephemeral_poem] = {}
     end

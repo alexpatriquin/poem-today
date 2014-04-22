@@ -4,12 +4,21 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <p><%= "Good morning, #{@user.first_name}" %></p>
-      <p>Here is your poem today:</p>
+      <p><%= "#{@user.first_name}" %></p>
+      <p></p>
       <h4><%= @poem.title %></h4>
       <p><%= "by #{@poem.poet}" %></p>
       <p><%= simple_format(@poem.content) %></p>
-      <p><%= "And the link... #{@poem_url}" %></p>
+      <p><%= "And the link... #{@poem_url}?keyword=#{@keyword_text}" %></p>
+
+
+      <p><%= @keyword_text %></p>
+      <p><%= @match_score %></p>
+      <p><%= @match_type %></p>
+      <p><%= @keyword_source %></p>
+      <p><%= @keyword_source_id %></p>
+
+
   </body>
 </html>
 
@@ -22,5 +31,8 @@
   you were matched to this poem today because...
   weather summar... don't forgot to enjoy / umbrella...
   oh and merry christmas
+
+
+
 
 -->
