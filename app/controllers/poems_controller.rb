@@ -9,10 +9,10 @@ class PoemsController < ApplicationController
     capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
     @token = capability.generate
 
-    if !session[:ephemeral_poem].nil? && !session[:ephemeral_poem].empty?
-      @poem_keyword = session[:ephemeral_poem].values.last
-    elsif params[:keyword]
+    if params[:keyword]
       @poem_keyword = params[:keyword] #from the daily email
+    elsif ephemeral_session?
+      @poem_keyword = session[:ephemeral_poem].values.last #from clicked_word
     else
       @poem_keyword = @poem.first_line.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
     end

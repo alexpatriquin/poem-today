@@ -7,12 +7,14 @@ namespace :pt do
   end
 
   desc "Send the daily emails to all users"
-  task :email_users => [:pt_env] do
-    begin
-      User.all.each { |u| PoemMailer.daily_email(u).deliver }
-    rescue LoadError
-      puts "Couldn't send to last email"
-      next
+  task :email_users => [:pt_env] do  
+    User.all.each do |u| 
+      begin
+        PoemMailer.daily_email(u).deliver 
+      rescue
+        puts "Couldn't send email to #{u.email}"
+        next
+      end
     end
   end
 
