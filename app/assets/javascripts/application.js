@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.progressbar
-//= require pace
 //= require turbolinks
 //= require poems
 //= require_self
