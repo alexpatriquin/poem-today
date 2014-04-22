@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.progressbar
-//= require turbolinks
+//= require pace
 //= require poems
+//= require turbolinks
 //= require_self
 //= require_tree .
