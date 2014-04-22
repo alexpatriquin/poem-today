@@ -1,4 +1,5 @@
 <%= render 'poem_image' %>
+<%= render 'voice_params' %>
 <h2 id="poem-title"><%= @poem_title %></h2><%= button_tag fa_icon("volume-up lg"), id: "keillorbot" %>
 <br>
 <p>
@@ -9,11 +10,3 @@
     <br>
   <% end %>
 </p>
-
-
-<%= content_tag "div", id: "token", data: {token: @token } do %>
-<% end %>
-<%= hidden_field_tag "title", "#{@poem_title}", id: "voice-title" %>
-<%= hidden_field_tag "poet", "#{@poem_poet}", id: "voice-poet" %>
-<%= hidden_field_tag "content", "#{@poem_content}", id: "voice-content" %>
-
