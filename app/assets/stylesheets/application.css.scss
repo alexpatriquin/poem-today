@@ -8,6 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require font-awesome
  *= require_self
  *= require_tree .
  */
@@ -15,23 +16,45 @@
 @import "bootstrap";
 
 $font-stack: "Old Standard TT";
+// Vollkorn
+// Old Standard TT
+// Gentium Book Basic
+// Cardo
+// Merriweather
+// Playfair Display
+
+
+$base-highlight: #90220D;;
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: $font-stack;
+    font-family: $font-stack !important;
 }
-p, div {
-    font-family: $font-stack;
+p, div, li, a {
+    font-family: $font-stack !important;
+}
+
+a:link, a:visited, a:hover, a:active { 
+    text-decoration: none !important;
+    color: #000001;
 }
 
 #redstripe {
     height: 5px;
-    background-color: #90220D;
+    background-color: $base-highlight;
+}
+
+#logo-png {
+    color: $base-highlight;
+    display: inline;
+}
+
+#brand {
+    font-color: $base-highlight;
+    display: inline;
 }
 
 #navbar {
-    height: 50px;
-    background-color: #444;
-
+    
 }
 
 #body {
@@ -43,21 +66,24 @@ p, div {
 
 }
 
-
 #poem-body {
 width: 75%;
 margin: 100px auto;
-    p, div {
-        font-family: $font-stack;
-        font-weight: 400;
-        font-size: 1em;
-    }
 
 }
-// Gentium Book Basic
 
+.fa {
+    color: $base-highlight;
+}
 
+#poem-title {
+    display: inline;
+}
 
+#keillorbot {
+    background: none;
+    border: none;
+}
 
 
 #signin_nav_links {

@@ -1,4 +1,5 @@
 <div id="signin_nav_links">
+    <%= link_to 'About', about_path %> |
   <% if user_signed_in? %>
     <%= link_to 'Edit profile', edit_user_registration_path %> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete %>

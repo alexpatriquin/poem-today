@@ -16,6 +16,7 @@ PoemToday::Application.routes.draw do
   post 'poems/voice' => 'poems#voice'
   post 'poems/search' => 'poems#search'
   get  '/ephemeral' => 'poems#ephemeral'
+  get  '/about' => 'welcome#index'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
