@@ -8,7 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require jquery.ui.all
+ *= require jquery.ui.progressbar
  *= require font-awesome
  *= require_self
  *= require_tree .
@@ -32,21 +32,6 @@ a {
     color: $maroon;
     }
 }
-
-progress {  
-    border: 0;
-    height: 5px;  
-}  
-
-progress::-webkit-progress-bar {  
-    background-color: none;
-}  
-progress::-webkit-progress-value {  
-    background-color: $maroon;
-}  
-progress::-moz-progress-bar {  
-    background-color: none;
-}  
 
 
 

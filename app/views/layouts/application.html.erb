@@ -13,7 +13,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body id="body">
-  <progress id="progressbar" value="0" max="100"></progress>  
+  
+<div class="progress progress-striped active" id="progressouter">
+   <div class="bar" id="progress"></div>
+</div>
 
 <%= render 'layouts/navigation' %>
 <%= render 'layouts/notices' %>
