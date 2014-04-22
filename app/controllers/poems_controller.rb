@@ -5,9 +5,7 @@ class PoemsController < ApplicationController
 
   def show
     @poem = Poem.find(params[:id])
-    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
-    capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
-    @token = capability.generate
+    new_twilio_token
 
     if params[:keyword]
       @poem_keyword = params[:keyword] #from the daily email
@@ -74,6 +72,12 @@ class PoemsController < ApplicationController
     FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
     flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance", "per_page" => 1).first
     @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+  end
+
+  def new_twilio_token
+    capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
+    capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
+    @token = capability.generate
   end
 
 end
