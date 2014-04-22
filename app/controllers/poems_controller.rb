@@ -64,6 +64,7 @@ class PoemsController < ApplicationController
       @poem_image_url = image_url(@poem_keyword)
       markov.clear!
       session[:ephemeral_poem] = {}
+      new_twilio_token
     end
   end
 
