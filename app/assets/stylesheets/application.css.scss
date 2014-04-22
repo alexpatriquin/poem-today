@@ -30,86 +30,60 @@ a {
     }
 }
 
+body {
+    background-image:url('bg-grit.jpg');
+}
+
 #redstripe{
     background: $maroon;
     height: 5px;
     display:none;
 }
 
+#navbar {
+    margin-top: -20px;
+}
+
 
 #logo-png {
-    color: $maroon;
-    display: inline;
+    margin-top: -26px;
 }
 
 #brand {
     font-color: $maroon;
-    display: inline;
+    display: inline-block;
 }
 
-#navbar {
-    
-}
-
-#body {
-    background-image:url('bg-grit.jpg');
-}
-
-#poem-bg {
+#signin_nav_links {
   float: right;
-
+  margin-top: 30px;
 }
 
-#poem-body {
-width: 75%;
-margin: 100px auto;
-
-}
 
 .fa {
     color: $maroon;
 }
 
-#poem-title {
-    display: inline;
+
+
+// /*flash*/
+
+.notice-spacer {
+    height: 75px;
 }
 
-#keillorbot {
-    background: none;
-    border: none;
+.pt-alert-container{
+  text-align: center;
+  width: 35%;
+  margin: auto;
 }
 
-
-#signin_nav_links {
-  float: right;
+.pt-alert{
+  list-style-type: none;
 }
 
+$alert: #FDEFEC;
 
-/*flash*/
-.alert-error {
-    background-color: #f2dede;
-    border-color: #eed3d7;
-    color: #b94a48;
-    text-align: left;
- }
-
-.alert-alert {
-    background-color: #f2dede;
-    border-color: #eed3d7;
-    color: #b94a48;
-    text-align: left;
- }
-
-.alert-success {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #468847;
-    text-align: left;
- }
-
-.alert-notice {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #468847;
-    text-align: left;
+.alert-error, .alert-alert, .alert-success, .alert-notice {
+    background-color: $alert;
  }

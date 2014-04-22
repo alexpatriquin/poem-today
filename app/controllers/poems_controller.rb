@@ -35,7 +35,7 @@ class PoemsController < ApplicationController
     results = KeywordSearch.new(poem_kw).match_keywords_to_poems
     results.delete_if { |result| result[:poem_id] == from_poem_id }
     if results.empty?
-      redirect_to Poem.find(from_poem_id), notice: "No poems with the word \"#{clicked_word}\""
+      redirect_to Poem.find(from_poem_id), notice: "I don't know of any #{clicked_word} poems."
     else
       if session[:ephemeral_poem].nil?
         session[:ephemeral_poem] = {}
@@ -71,8 +71,12 @@ class PoemsController < ApplicationController
   def image_url(keyword)
     FlickRaw.api_key = ENV["FLICKR_API_KEY"]
     FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
-    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance", "per_page" => 1).first
-    @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance").first
+    if flickr_photo.nil?
+      @poem_image_url = ""  
+    else
+      @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+    end
   end
 
   def new_twilio_token

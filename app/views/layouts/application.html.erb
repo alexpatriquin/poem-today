@@ -12,11 +12,15 @@
 <body>
   <div id="redstripe"></div>
   <br>
-
-<%= render 'layouts/navigation' %>
-<%= render 'layouts/notices' %>
-<%= yield %>
-<%= render 'layouts/footer' %>
-
+  <div class="container-fluid">
+    <%= render 'layouts/navigation' %>
+    <div class="row notice-spacer">
+      <%= render 'layouts/notices' %>
+    </div>
+    <div class="row">
+      <%= yield %>
+    </div>  
+    <%= render 'layouts/footer' %>
+  </div>
 </body>
 </html>
