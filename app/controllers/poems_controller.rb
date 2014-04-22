@@ -8,6 +8,12 @@ class PoemsController < ApplicationController
     capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
     capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])
     @token = capability.generate
+
+    if session[:ephemeral_poem].nil? || session[:ephemeral_poem].empty?
+      @poem_image_url = ""
+    else
+      @poem_image_url = image_url(session[:ephemeral_poem].values.last)
+    end
   end
 
   def voice
@@ -51,6 +57,7 @@ class PoemsController < ApplicationController
     else
       markov = MarkyMarkov::TemporaryDictionary.new
       session[:ephemeral_poem].keys.each { |poem_id| markov.parse_string(Poem.find(poem_id).content) }
+      @poem_image_url = image_url(session[:ephemeral_poem].values.last)
       @poem_title = session[:ephemeral_poem].values.join(' ')
       @poem_poet = current_user.first_name || "You"
       @poem_content = []
@@ -58,6 +65,15 @@ class PoemsController < ApplicationController
       markov.clear!
       session[:ephemeral_poem] = {}
     end
+  end
+
+  def image_url(keyword)
+    FlickRaw.api_key = ENV["FLICKR_API_KEY"]
+    FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
+    binding.pry
+    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "interestingness-desc", "per_page" => 1).first
+    @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+    
   end
 
 end

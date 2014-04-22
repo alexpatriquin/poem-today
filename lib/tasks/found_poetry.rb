@@ -28,19 +28,23 @@ class FoundPoetry
     poem_urls.each do |poem_url|
       uri = "http://www.poetryfoundation.org#{poem_url}"
       begin
-        poem_doc = Nokogiri::HTML(open(uri))
-        content = clean_text(poem_doc.search("#poem > .poem").text).join("\n")
-        if content.length < 2000
-          db_poem = Poem.create(:title => poem_doc.search("#poem-top > h1").text,
-                                :first_line => clean_text(poem_doc.search("#poem > .poem").text).first,
-                                :content => content,
-                                :poet => poem_doc.search("#poemwrapper > .author > a").text.strip)
 
-          subjects = extract_categories("subject", poem_doc)
+        @poem_doc = Nokogiri::HTML(open(uri))
+        content = clean_text(@poem_doc.search("#poem > .poem").text).join("\n")
+        @title = @poem_doc.search("#poem-top > h1").text
+        @poet = @poem_doc.search("#poemwrapper > .author > a").text.strip
+        if content.length < 2000
+          db_poem = Poem.create(:title => @title,
+                                :first_line => clean_text(@poem_doc.search("#poem > .poem").text).first.strip,
+                                :content => content,
+                                :poet => @poet,
+                                :isbn => @poet)
+
+          subjects = extract_categories("subject", @poem_doc)
           subjects.each { |name| db_poem.subjects << find_or_create_subject(name.strip) } if !subjects.empty?
 
           #holidays are occasions at pf
-          occasions = extract_categories("occasion", poem_doc)
+          occasions = extract_categories("occasion", @poem_doc)
           occasions.each { |name| db_poem.occasions << find_or_create_occasion(name) } if !occasions.empty?
           puts "Created #{poem_url}"
         end
@@ -48,6 +52,15 @@ class FoundPoetry
         puts "Could not create #{poem_url}"
         next
       end
+    end
+  end
+
+  def isbn_or_title
+    if @poem_doc.search(".credit").empty?
+      @poet
+    else
+      # @poem_doc.search(".credit > em").to_s.split("source_").pop.split("\"><em>").shift
+      @poem_doc.search(".credit > .booktip").to_s.split("book_tip_").pop.split("\"></div>").pop
     end
   end
 

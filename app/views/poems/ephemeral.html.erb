@@ -1,3 +1,5 @@
+<%= image_tag @poem_image_url, id: 'poem-bg' %>
+
 <p><%= @poem_title %></p>
 <p><%= @poem_poet %></p>
 <p>
@@ -9,10 +11,10 @@
   <% end %>
 </p>
 
-
 <%= content_tag "div", id: "token", data: {token: @token } do %>
 <% end %>
 <%= hidden_field_tag "title", "#{@poem_title}", id: "voice-title" %>
 <%= hidden_field_tag "poet", "#{@poem_poet}", id: "voice-poet" %>
 <%= hidden_field_tag "content", "#{@poem_content}", id: "voice-content" %>
 <%= button_tag "Speak to me", id: "keillorbot" %>
+
