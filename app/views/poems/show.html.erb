@@ -7,12 +7,12 @@
       
    
 
-  <p><%= @poem.poet %></p>
-
+  <h5>BY <%= @poem.poet.upcase %></h5>
+  <br>
   <p>
     <% @poem.content.split("\n").each do |line| %>
         <% line.split.each do |word| %>
-          <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post %>
+          <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post, class: "poem-word" %>
       <% end %>
       <br>
     <% end %>

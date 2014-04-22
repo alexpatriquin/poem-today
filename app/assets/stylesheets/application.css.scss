@@ -15,41 +15,37 @@
 
 @import "bootstrap";
 
-$font-stack: "Old Standard TT";
-// Vollkorn
-// Old Standard TT
-// Gentium Book Basic
-// Cardo
-// Merriweather
-// Playfair Display
+$font-stack: "Cardo";
 
+$maroon: #90220D;
 
-$base-highlight: #90220D;;
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: $font-stack !important;
-}
-p, div, li, a {
+p, div, li, a, h1, h2, h3, h4, h5, h6 {
     font-family: $font-stack !important;
 }
 
-a:link, a:visited, a:hover, a:active { 
+a { 
     text-decoration: none !important;
     color: #000001;
+
+    &:visited, &:hover, &:active {
+    color: $maroon;
+    }
 }
+
+
 
 #redstripe {
     height: 5px;
-    background-color: $base-highlight;
+    background-color: $maroon;
 }
 
 #logo-png {
-    color: $base-highlight;
+    color: $maroon;
     display: inline;
 }
 
 #brand {
-    font-color: $base-highlight;
+    font-color: $maroon;
     display: inline;
 }
 
@@ -73,7 +69,7 @@ margin: 100px auto;
 }
 
 .fa {
-    color: $base-highlight;
+    color: $maroon;
 }
 
 #poem-title {
