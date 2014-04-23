@@ -60,17 +60,35 @@ body {
     vertical-align: 0;
 }
 
-#pt-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding-right: 15px;
+/*footer*/
+
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -25px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 25px; /* .push must be the same height as .footer */
     font-style: italic;
     font-height: .5em;
     color: grey;
+    float: right;
+    margin-right: 10px;
 }
 
-// /*flash*/
+
+
+
+
+
+
+
+
+/*flash*/
 
 .notice-spacer {
     height: 75px;
