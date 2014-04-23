@@ -7,7 +7,16 @@
         <% @user_poems_with_summary.each do |ups| %>
           <li>
             <h4><%= link_to "#{ups[0].title}", poem_path(ups[0].id) %></h4>
-            <p><%= "By #{ups[0].poet}" %> | <%= "#{ups[1]}" %></p>
+            <%#= binding.pry %>
+            <p><%= "By #{ups[0].poet}" %> | <%= "#{ups[1].keys.pop}" %>
+              <% keyword_source = ups[1].values.pop.keys.pop %>
+              <% keyword_source_id = ups[1].values.pop.values.pop %>
+              <% if keyword_source == "news" %>
+                <%= link_to "this NYT article", keyword_source_id %>
+              <% elsif keyword_source == "twitter" %>
+                <%= link_to "this tweet", keyword_source_id %>
+              <% end %>
+            </p>
             <br>
           </li>
         <% end %>
