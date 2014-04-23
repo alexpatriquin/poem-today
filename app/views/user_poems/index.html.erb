@@ -1,6 +1,6 @@
-<ul>
+
   <% @user_poems_with_content.each do |upc| %>
-    <li>
+
       <h4><%= link_to "#{upc[1].title}", poem_path(upc[1].id) %></h4>
       <%= "By #{upc[1].poet}" %><br>
       <%= "#{upc[0].created_at.strftime("%B %d")}" %><br>

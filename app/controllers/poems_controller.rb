@@ -68,17 +68,6 @@ class PoemsController < ApplicationController
     end
   end
 
-  def image_url(keyword)
-    FlickRaw.api_key = ENV["FLICKR_API_KEY"]
-    FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
-    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance").first
-    if flickr_photo.nil?
-      @poem_image_url = ""  
-    else
-      @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
-    end
-  end
-
   def new_twilio_token
     capability = Twilio::Util::Capability.new(ENV["TWILIO_ACCOUNT_SID"],ENV["TWILIO_AUTH_TOKEN"])
     capability.allow_client_outgoing(ENV["TWILIO_APPLICATION_SID"])

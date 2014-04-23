@@ -19,4 +19,15 @@ class ApplicationController < ActionController::Base
     session[:ephemeral_poem] && session[:ephemeral_poem].count > 5 #minimum is 4
   end
 
+  def image_url(keyword)
+    FlickRaw.api_key = ENV["FLICKR_API_KEY"]
+    FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
+    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance").first
+    if flickr_photo.nil?
+      @poem_image_url = ""  
+    else
+      @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+    end
+  end
+
 end
