@@ -5,11 +5,62 @@ class UserPoemsController < ApplicationController
     if ephemeral_poem?
       flash.now[:notice] = %Q[You've creted a new <a href="#{ephemeral_path}"> poem</a>.].html_safe
     end
+  
+    @user_poems_with_summary = {}
 
-    @user_poems_with_content = {}
-    current_user.user_poems.each do |user_poem| 
-      @user_poems_with_content[user_poem] = Poem.find(user_poem.poem_id)
+    current_user.user_poems.each do |up|
+      @user_poem = up
+      poem = Poem.find(up.poem_id)
+      @user_poems_with_summary[poem] = create_summary_past_tense
     end
-  end 
+
+  end
+
+
+
+  def create_summary_past_tense
+    @summary = "Matched on #{@user_poem.created_at.strftime("%B %d")} "
+    
+    if @user_poem.match_type == "random"
+      @summary << "with a random word."
+    else
+      @summary << "with the word \"#{@user_poem.keyword_text}\" "
+    
+      case @user_poem.keyword_source
+      when "first_name"
+        @summary << "because it's a great word ;)"
+      when "birthday"
+        @summary << "because it was your birthday :)"
+      when "holiday"
+        holiday_summary
+      when "forecast"
+        forecast_summary
+      when "news"
+        news_summary
+      when "twitter"
+        twitter_summary
+      end
+
+    end
+  end
+
+  def holiday_summary
+    @summary << "because #{@user_poem.keyword_text.titleize} was a holiday!"
+  end
+
+  def forecast_summary
+    @summary << "which was in the weather forecast for #{@user_poem.keyword_source_id}."
+  end
+
+  def news_summary
+    @summary << "which was in this New York Times article."
+  end
+
+  def twitter_summary
+    @summary << "which was in your tweet."
+  end
+
 
 end
+
+

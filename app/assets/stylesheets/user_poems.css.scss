@@ -1,3 +1,18 @@
 // Place all the styles related to the UserPoems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#daily-matches {
+  list-style-type: none;
+}
+
+#match-summary {
+  position: relative;
+  left: 50px;
+  top: 50px;
+
+}
+
+#daily-matches-headline {
+  margin-left: 35px;
+}

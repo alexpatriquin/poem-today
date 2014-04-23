@@ -1,17 +1,15 @@
+    <div class="col-md-12">
+      <h2 id="daily-matches-headline">Your Daily Matches</h2>
+    </div>
 
-  <% @user_poems_with_content.each do |upc| %>
-
-      <h4><%= link_to "#{upc[1].title}", poem_path(upc[1].id) %></h4>
-      <%= "By #{upc[1].poet}" %><br>
-      <%= "#{upc[0].created_at.strftime("%B %d")}" %><br>
-      <%= "Match Type: #{upc[0].match_type.capitalize}" %><br>
-      <% if !upc[0].keyword_text.nil? %>
-        <%= "Match Score: #{upc[0].match_score}" %><br>
-        <%= "Keyword: #{upc[0].keyword_text.capitalize}" %><br>
-        <%= "Keyword Source: #{upc[0].keyword_source.humanize}" %><br>
-        <%= "Keyword Source Info: #{upc[0].keyword_source_id}" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+    <div class="col-md-12">
+      <ul id="daily-matches">
+        <% @user_poems_with_summary.each do |ups| %>
+          <li>
+            <h4><%= link_to "#{ups[0].title}", poem_path(ups[0].id) %></h4>
+            <p><%= "By #{ups[0].poet}" %> | <%= "#{ups[1]}" %></p>
+            <br>
+          </li>
+        <% end %>
+    </div>
 
