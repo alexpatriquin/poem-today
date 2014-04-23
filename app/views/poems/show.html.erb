@@ -1,19 +1,21 @@
 
-<div class="col-md-6">
-  <div id="poem-section">
+  
+  <div class="col-md-12">
     <h2 id="poem-title"><%= @poem.title %></h2><%= button_tag fa_icon("volume-up lg"), id: "keillorbot" %>
     <%= content_tag "div", id: "token", data: {token: @token } do %><% end %>
     <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
     <%= hidden_field_tag "poet", "#{@poem.poet}", id: "voice-poet" %>
     <%= hidden_field_tag "content", "#{@poem.content}", id: "voice-content" %>
-    <h5 id="poem-poet">BY <%= @poem.poet.upcase %></h5><br>
-    <p><% @poem.content.split("\n").each do |line| %>
-          <% line.split.each do |word| %>
-            <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post, id: "poem-word" %><% end %><br><% end %></p>
   </div>
-</div>
 
-<div class="col-md-6">
-  <!-- #poem-image on partial -->
-  <%= render 'poem_image' %>
-</div>
+  <div class="col-md-6">
+    <h5 id="poem-poet">BY <%= @poem.poet.upcase %></h5><br>
+    <p id="poem-body"><% @poem.content.split("\n").each do |line| %>
+        <% line.split.each do |word| %>
+          <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post, id: "poem-word" %><% end %><br><% end %>
+    </p>
+  </div>
+    
+  <div class="col-md-6">
+    <%= render 'poem_image' %>
+  </div>

@@ -40,11 +40,6 @@ body {
     display:none;
 }
 
-#navbar {
-    margin-top: -20px;
-}
-
-
 #logo-png {
     margin-top: -26px;
 }
@@ -62,9 +57,18 @@ body {
 
 .fa {
     color: $maroon;
+    vertical-align: 0;
 }
 
-
+#pt-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 15px;
+    font-style: italic;
+    font-height: .5em;
+    color: grey;
+}
 
 // /*flash*/
 
@@ -76,6 +80,7 @@ body {
   text-align: center;
   width: 35%;
   margin: auto;
+  display: none;
 }
 
 .pt-alert{

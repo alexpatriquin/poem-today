@@ -18,5 +18,8 @@
 //= require_tree .
 
 $(document).ready(function() {  
-    $("#redstripe").fadeIn(1000);
+  $("#redstripe").fadeIn(1250);
+  $('.pt-alert-container').fadeIn(1500, function() {
+    $(this).delay(1500).fadeOut(1500);
+  });
 });

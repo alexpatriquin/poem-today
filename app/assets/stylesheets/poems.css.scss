@@ -1,17 +1,18 @@
-// #poem-section {
-//   margin-left: 50px;
-// }
-
-
-#poem-title {
-    display: inline;
+#poem-title, #poem-poet, #poem-body  {
+    display: inline-block;
+    margin-left: 150px;
 }
 
 #keillorbot {
     background: none;
     border: none;
+    padding-top: -10px;
 }
 
-// #poem-poet {}
-// #poem-word {}
-// #poem-image {}
+
+#poem-word {}
+
+#poem-image {
+  
+
+}
