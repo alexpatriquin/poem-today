@@ -16,7 +16,7 @@ class PoemScorer
     when :news
       result[:match_score] += 30  
     when :forecast
-      result[:match_score] += 100
+      result[:match_score] += 20
     end
   end
 

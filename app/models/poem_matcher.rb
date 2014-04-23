@@ -89,7 +89,6 @@ class PoemMatcher
   end
 
   def ensure_unique
-    
     user_keyword_history = UserPoem.where(user_id: @user.id).pluck(:keyword_text)
     user_keyword_history.each do |keyword_text|
       @results.delete_if { |result| result[:keyword_text] == keyword_text }
