@@ -6,7 +6,7 @@ class UserPoemsController < ApplicationController
       flash.now[:notice] = %Q[You've creted a new <a href="#{ephemeral_path}"> poem</a>.].html_safe
     end
     @user_poems_with_summary = {}
-    current_user.user_poems.each do |up|
+    current_user.user_poems.reverse.each do |up|
       @user_poem = up
       poem = Poem.find(up.poem_id)
       @user_poems_with_summary[poem] = create_summary_past_tense
@@ -15,7 +15,7 @@ class UserPoemsController < ApplicationController
 
   def create_summary_past_tense
     summary_hash = {}
-    @summary = "matched on #{@user_poem.created_at.strftime("%B %d")} "
+    @summary = "On #{@user_poem.created_at.strftime("%B %d")}, "
 
     if @user_poem.match_type == "random"
       @summary << "with a random word."
