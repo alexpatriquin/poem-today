@@ -37,7 +37,6 @@ class UserPoemsController < ApplicationController
         twitter_summary
       end
     end
-    # binding.pry
     user_poem_hash = {}
     user_poem_hash[@user_poem.keyword_source] = @user_poem.keyword_source_id
     summary_hash[@summary] = user_poem_hash
