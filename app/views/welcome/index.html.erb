@@ -1,5 +1,5 @@
 <div class="col-md-2"></div>
-<div class="col-md-6">
+<div class="col-md-8">
 <h1>About PoemToday</h1>
 <p>PoemToday is a simple Rails web app that statistically generates a poem based on its users' profile and behavior. Each of the 6,000 poems on the site actually contains links wrapped around every word in the poem. When a user clicks one of the word, the site initiates a search of the database for the best-matching poem and redirects the user to the result, alongside with the top image from the Flickr API for that word. Behind the scenes, PoemToday is storing information about all of the words the user has clicked and the poems the user has visited in a temporary session. When the session has enough data, it statistically generates a completely unique "ephemeral" poem with a statistical process known as a Markov Chain.</p><br>
 <%= image_tag 'markov-diagram.png', id: "markov-diagram" %>

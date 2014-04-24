@@ -1,5 +1,19 @@
-<div class="devise-form">
-<h2>Sign up</h2>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+  <h1>Poetry, personalized.</h1>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-4">
+<br><br><br>
+<%= image_tag 'arm.png' %>
+<br><br>
+<p>PoemToday is poetry, personalized. Click on words in <%= link_to "a poem", poem_path(rand(6000)) %> to generate unique, ephemeral poems that sound as they were written by a human, but weren't. Receive a daily poem via email or tweet that is matched to information, such as your tweets or location, that you care to share. Read more <%= link_to "about it", about_path %>.
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-4">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -15,9 +29,11 @@
 
     <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-    
+    <br>
   <div><%= f.submit "Sign up" %></div>
+  <br>
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>
 </div>
