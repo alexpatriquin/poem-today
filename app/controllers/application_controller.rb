@@ -22,11 +22,12 @@ class ApplicationController < ActionController::Base
   def image_url(keyword)
     FlickRaw.api_key = ENV["FLICKR_API_KEY"]
     FlickRaw.shared_secret = ENV["FLICKR_API_SECRET"]
-    flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance").first
-    if flickr_photo.nil?
-      @poem_image_url = ""  
-    else
+    begin
+      binding.pry
+      flickr_photo = flickr.photos.search("text"=>"#{keyword}", "sort"=> "relevance").first
       @poem_image_url = "http://farm#{flickr_photo.farm}.staticflickr.com/#{flickr_photo.server}/#{flickr_photo.id}_#{flickr_photo.secret}.jpg"
+    rescue
+      @poem_image_url = "https://s.yimg.com/pw/images/Panda_L.jpg"
     end
   end
 

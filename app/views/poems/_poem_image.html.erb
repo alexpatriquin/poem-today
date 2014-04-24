@@ -1,4 +1,6 @@
 <div id="poem-image">
-  <%= image_tag @poem_image_url %>
-  <p><%= @poem_keyword %></p>
+  <% if !@poem_image_url.nil? %>
+    <%= image_tag @poem_image_url %>
+    <p><%= @poem_keyword %></p>
+  <% end %>
 </div>
