@@ -12,7 +12,7 @@ class PoemsController < ApplicationController
     elsif ephemeral_session?
       @poem_keyword = session[:ephemeral_poem].values.last #from clicked_word
     else
-      @poem_keyword = @poem.first_line.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
+      @poem_keyword = @poem.first_line.downcase.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
     end
 
     @poem_image_url = image_url(@poem_keyword) 
