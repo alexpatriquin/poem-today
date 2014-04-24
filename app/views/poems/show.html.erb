@@ -10,7 +10,7 @@
 <div class="col-md-6">
   <p id="poem-body"><% @poem.content.split("\n").each do |line| %>
       <% line.split.each do |word| %>
-        <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post, id: "poem-word" %><% end %><br><% end %>
+        <%= link_to word, poems_search_path(clicked_word:word, from_poem:@poem.id), method: :post, class: "poem-word" %><% end %><br><% end %>
   </p>
 </div>
   
