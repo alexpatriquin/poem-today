@@ -20,6 +20,8 @@ module PoemToday
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    config.assets.precompile += %w( .svg .eot .woff .ttf )S
     config.serve_static_assets = true
     I18n.enforce_available_locales = false
   end
