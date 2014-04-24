@@ -24,7 +24,7 @@ class UserPoemsController < ApplicationController
       @summary << "with the word \"#{@user_poem.keyword_text}\" "
       case @user_poem.keyword_source
       when "first_name"
-        @summary << "because it's a great word ;)"
+        @summary << "because it's your name ;)"
       when "birthday"
         @summary << "because it was your birthday :)"
       when "holiday"
