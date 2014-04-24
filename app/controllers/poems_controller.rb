@@ -11,6 +11,8 @@ class PoemsController < ApplicationController
       @poem_keyword = params[:keyword] #from the daily email
     elsif ephemeral_session?
       @poem_keyword = session[:ephemeral_poem].values.last #from clicked_word
+    elsif current_user.created_at > DateTime.now.beginning_of_day
+      @poem_keyword = current_user.first_name
     else
       @poem_keyword = @poem.first_line.downcase.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
     end
