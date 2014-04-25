@@ -17,17 +17,6 @@
 $font-stack: "Cardo";
 $maroon: #90220D;
 
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('/assets/fontawesome-webfont.eot?v=4.0.3');
-  src: url('/assets/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), 
-  url('/assets/fontawesome-webfont.woff?v=4.0.3') format('woff'),
-  url('/assets/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), 
-  url('/assets/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 p, div, li, a, h1, h2, h3, h4, h5, h6 {
     font-family: $font-stack !important;
 }
