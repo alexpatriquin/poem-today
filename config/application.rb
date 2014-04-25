@@ -22,7 +22,6 @@ module PoemToday
     # config.i18n.default_locale = :de
     I18n.enforce_available_locales = false
 
-    # config.assets.paths << Rails.root.join("app", "assets", "fonts")
-
+    # run rake assets:precompile RAILS_ENV=production to get font-awesome-rails
   end
 end
