@@ -15,9 +15,12 @@ class PoemMailer < ActionMailer::Base
 
     mail(to: @user.email, subject: "#{@poem.title}")
 
-    if @user.twitter_handle
+    if twitter_handle_present?
       TWITTER_CLIENT.update("Good morning @#{@user.twitter_handle}, here is your poem for today. #{@poem_url}?#{@keyword_text}")
     end
   end
 
+  def twitter_handle_present?
+    !@user.twitter_handle.nil? && !@user.twitter_handle.empty?
+  end
 end
