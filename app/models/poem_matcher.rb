@@ -44,22 +44,13 @@ class PoemMatcher
       data_source_match("holiday")
     end
 
-    data_source_match("forecast") if lat_and_long_exist
+    data_source_match("forecast") if @user.latitude.present? && @user.longitude.present? 
     data_source_match("news")
-    data_source_match("tweet") if twitter_handle_present?
+    data_source_match("tweet") if @user.twitter_handle.present?
 
     @results.flatten!
     ensure_results
     save_top_result
-  end
-
-  def twitter_handle_present?
-    binding.pry
-    !@user.twitter_handle.nil? && !@user.twitter_handle.empty?
-  end
-
-  def lat_and_long_exist
-    (@user.latitude != nil) && (@user.longitude != nil)
   end
 
   def user_birthday_today

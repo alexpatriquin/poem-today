@@ -9,7 +9,7 @@ class PoemsController < ApplicationController
 
     if params[:keyword]
       @poem_keyword = params[:keyword] #from the daily email
-    elsif ephemeral_session?
+    elsif session[:ephemeral_poem].present?
       @poem_keyword = session[:ephemeral_poem].values.last #from clicked_word
     elsif current_user && (current_user.created_at > DateTime.now.beginning_of_day)
       @poem_keyword = current_user.first_name
@@ -53,10 +53,7 @@ class PoemsController < ApplicationController
   end
 
   def ephemeral
-    if !ephemeral_poem?
-      flash[:notice] = "This correlation is well established for ephemeral species."
-      redirect_to authenticated_root_path
-    else
+    if ephemeral_poem?
       markov = MarkyMarkov::TemporaryDictionary.new
       session[:ephemeral_poem].keys.each { |poem_id| markov.parse_string(Poem.find(poem_id).content) }
       @poem_title = session[:ephemeral_poem].values[-4..-1].join(' ')
@@ -67,6 +64,9 @@ class PoemsController < ApplicationController
       markov.clear!
       session[:ephemeral_poem] = {}
       new_twilio_token
+    else
+      flash[:notice] = "This correlation is well established for ephemeral species."
+      redirect_to authenticated_root_path
     end
   end
 

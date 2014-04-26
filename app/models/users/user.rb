@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   after_create :first_poem
+  # validates_presence_of [:location, :birthday, :twitter_handle]
 
   has_many :user_poems
   has_many :poems, :through => :user_poems

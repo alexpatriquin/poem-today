@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :current_password, :location, :birthday, :first_name, :twitter_handle) }
   end
 
-  def ephemeral_session?
-    !session[:ephemeral_poem].nil? && !session[:ephemeral_poem].empty?
-  end
-
   def ephemeral_poem?
     session[:ephemeral_poem] && session[:ephemeral_poem].count > 4 #minimum is 4
   end
