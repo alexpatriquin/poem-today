@@ -11,6 +11,7 @@ class UserPoemsController < ApplicationController
       poem = Poem.find(up.poem_id)
       @user_poems_with_summary[poem] = create_summary_past_tense
     end
+    profile_incomplete?
   end
 
   def create_summary_past_tense
@@ -58,7 +59,12 @@ class UserPoemsController < ApplicationController
   def twitter_summary
     @summary << "which was in"
   end
-  
+
+  def profile_incomplete?
+    unless current_user.birthday.present? && current_user.location.present? && current_user.twitter_handle.present?
+      @profile_incomplete = true
+    end
+  end
 end
 
 
