@@ -1,4 +1,4 @@
-[![](/app/assets/images/icon_31093.jpg "PoemToday logo")](http://poemtoday.com/)
+[![](/app/assets/images/logo_small.png "PoemToday logo")](http://poemtoday.com/)
 # PoemToday
 PoemToday is a simple Rails app and algorithm that matches users to poems based on profile info and enables them to create interesting Markov chains by browsing poems.
 
@@ -7,7 +7,7 @@ Each of the 6,000 poems currently on PoemToday actually has a link wrapped aroun
 
 Behind the scenes, PoemToday is storing information about all of the words the user has clicked and the poems the user has visited in a temporary session. When the session has enough data, it statistically generates a completely unique "ephemeral" poem with a statistical process known as a Markov chain.
 
-Markov chains, of course, are a remarkably simple mathematical operation capable of producing uncanny results when modeling human-written texts. In the spirit of the memorylessness of Markov Chains, randomly-generated poems on PoemToday aren't stored. When the user leaves or reloads http://www.poemtoday.com/ephemeral, the session is cleared and your Markov poem is gone.
+Markov chains, of course, are a remarkably simple mathematical operation capable of producing uncanny results when modeling human-written texts. In the spirit of the memorylessness of Markov Chains, randomly-generated poems on PoemToday aren't stored. When the user leaves or reloads poemtoday.com/ephemeral, the session is cleared and your Markov poem is gone.
 
 ## Daily Email Algorithm
 PoemToday also features a daily email option. The app will email the user a poem every morning, along with information about why that poem was matched to the user on that day. The daily email matching is based on whatever inputs the user shares with PoemToday. Currently available inputs are first name, birthday, location and Twitter handle. So, for example, if the user tells PoemToday her location, it will look up her weather forecast and match words in her location's forecast summary with poems in its database.
@@ -24,17 +24,20 @@ Daily Email matches are saved on the user's homepage, with details about the mat
 Continuing development plans include additional user feedback mechanisms for the matching algorithms and a/b testing a Natural Language Generation (such as simplenlg) realization engine against the Markov Chain.
 
 ## Screenshots
-Homepage (Signed in)
-[![](/public/assets/homepage_signed_in.png "Homepage (signed in)")](http://poemtoday.com/poems/1823?keyword=grasping)
+*Homepage (Signed in)*
 
-Poem Page (with top Flickr photo for referral keyword)
-[![](/public/assets/poem_with_flickr_kw.png "Poem Page")](http://poemtoday.com/poems/1823?keyword=grasping)
+[![](/public/assets/homepage_signed_in.png "Homepage (signed in)")]
 
-Markov Poem Page
-[![](/public/assets/markov_storage.png "Markov Poem Page")](http://poemtoday.com/ephemeral)
+*Poem Page (with top Flickr photo for referral keyword)*
+
+[![](/public/assets/poem_with_flickr_kw.png "Poem Page")]
+
+*Markov Poem Page*
+
+[![](/public/assets/markov_storage.png "Markov Poem Page")]
 
 ## Domain Model
-[![](/public/assets/rails-erd-schema.jpg "Database Schema")](http://poemtoday.com/about)
+[![](/public/assets/rails-erd-schema.jpg "Database Schema")]
 
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) &mdash; PoemToday
