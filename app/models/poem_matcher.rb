@@ -102,15 +102,17 @@ class PoemMatcher
     top_result = @results.inject do |winning,result| 
       winning[:match_score] > result[:match_score] ? winning : result 
     end
-    @user.user_poems.build(:poem_id             => top_result[:poem_id],
-                           :match_score         => top_result[:match_score],
-                           :keyword_text        => top_result[:keyword_text],
-                           :keyword_frequency   => top_result[:keyword_frequency],
-                           :keyword_source      => top_result[:keyword_source],
-                           :keyword_source_id   => top_result[:keyword_source_id],
-                           :match_type          => top_result[:match_type])
+    user_poem = @user.user_poems.build(:poem_id   => top_result[:poem_id],
+                             :match_score         => top_result[:match_score],
+                             :keyword_text        => top_result[:keyword_text],
+                             :keyword_frequency   => top_result[:keyword_frequency],
+                             :keyword_source      => top_result[:keyword_source],
+                             :keyword_source_id   => top_result[:keyword_source_id],
+                             :match_type          => top_result[:match_type])
     @user.save
-    @user.user_poems.last
+    
+    user_poem.create_summary_past_tense
+    user_poem
   end
 
 end

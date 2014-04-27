@@ -4,12 +4,15 @@
 
     <div class="col-md-12">
       <ul id="daily-matches">
-        <% @user_poems_with_summary.each do |ups| %>
+        <% @user_poems.each do |user_poem| %>
+          <% poem = Poem.find(user_poem.poem_id) %>
           <li>
-            <h4><%= link_to "#{ups[0].title}", "#{poem_path(ups[0].id)}?keyword=#{@user_poem.keyword_text}" %><small><%= " by #{ups[0].poet}" %></small></h4>
-            <p><%= "#{ups[1].keys.pop}" %>
-              <% keyword_source = ups[1].values.pop.keys.pop %>
-              <% keyword_source_id = ups[1].values.pop.values.pop %>
+            <h4><%= link_to "#{poem.title}", "http://www.poemtoday.com/poems/#{poem.id}?keyword=#{user_poem.keyword_text}" %><small><%= " by #{poem.poet}" %></small></h4>
+
+            <p><%= "#{user_poem.summary}" %>
+              <% keyword_source = user_poem.keyword_source %>
+              <% keyword_source_id = user_poem.keyword_source_id %>
+
               <% if keyword_source == "news" %>
                 <% article = News.where(:url=>keyword_source_id).first %>
                  <i><%= link_to article.title, keyword_source_id, target: "_blank"  %></i> in the New York Times.
