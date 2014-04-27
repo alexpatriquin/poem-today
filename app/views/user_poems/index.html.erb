@@ -18,7 +18,7 @@
                  <i><%= link_to article.title, keyword_source_id, target: "_blank"  %></i> in the New York Times.
               <% elsif keyword_source == "twitter" %>
                 <% tweet = Tweet.where(:id_str=>keyword_source_id).first %>
-                your tweet, <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>
+                your tweet: <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>.
               <% end %>
             </p>
             <br>
