@@ -76,7 +76,7 @@ class PoemMatcher
     if @results.empty?
       poem_hash                      = {}
       poem_hash[:poem_id]            = Poem.find(rand(1..Poem.count)).id
-      poem_hash[:match_type]         = :random        
+      poem_hash[:match_type]         = "random"
       poem_hash[:match_score]        = 0
       @results << poem_hash
       
@@ -86,8 +86,9 @@ class PoemMatcher
 
   def ensure_unique
     user_keyword_history = UserPoem.where(user_id: @user.id).pluck(:keyword_text)
-    user_keyword_history.each do |keyword_text|
-      @results.delete_if { |result| result[:keyword_text] == keyword_text }
+    user_keyword_history.delete_if { |keyword| keyword == nil }
+    user_keyword_history.each do |keyword|
+      @results.delete_if { |result| result[:keyword_text] == keyword }
     end
 
     user_poem_history = UserPoem.where(user_id: @user.id).pluck(:poem_id)
