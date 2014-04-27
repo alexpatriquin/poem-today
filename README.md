@@ -39,7 +39,16 @@ Continuing development plans include additional user feedback mechanisms for the
 
 ## Schema
 
-###Database Schema
-[Database Schema](public/assets/rails-erd-schema.jpg)
+Database Schema
+[![](/public/assets/rails-erd-schema.jpg "Database Schema")](http://poemtoday.com/about)
+
+## Built With
+- [Ruby on Rails](https://github.com/rails/rails) &mdash; PoemToday
+ is a Rails app using RESTful routes and MVC architecture.
+- [PostgreSQL](http://www.postgresql.org/) &mdash; Our main data store is in Postgres.
+- [RubyGems](https://github.com/AlexPatriquin/BitcoinMessenger/blob/master/Gemfile) &mdash; A full list of gems can be found in the Gemfile.
+
+## License
+[MIT License](https://github.com/AlexPatriquin/BitcoinMessenger/blob/master/mit-license). Copyright 2014 Alex Patriquin and Chris Kohlbrenner.
 
 
