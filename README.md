@@ -37,7 +37,7 @@ Continuing development plans include additional user feedback mechanisms for the
 ![](/public/assets/markov_storage.png "Markov Poem Page")
 
 ## Domain Model
-![](/public/assets/rails-erd-schema.jpg "Database Schema")
+[](/public/assets/rails-erd-schema.jpg "Database Schema")
 
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) &mdash; PoemToday
@@ -46,6 +46,6 @@ Continuing development plans include additional user feedback mechanisms for the
 - [RubyGems](https://github.com/AlexPatriquin/BitcoinMessenger/blob/master/Gemfile) &mdash; A full list of gems can be found in the Gemfile.
 
 ## License
-[MIT License](https://github.com/AlexPatriquin/BitcoinMessenger/blob/master/mit-license). Copyright 2014 Alex Patriquin and Chris Kohlbrenner.
+[MIT License](/mit-license). Copyright 2014 Alex Patriquin and Chris Kohlbrenner.
 
 
