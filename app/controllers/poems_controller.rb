@@ -59,7 +59,7 @@ class PoemsController < ApplicationController
       @poem_title = session[:ephemeral_poem].values[-4..-1].join(' ')
       @poem_content = []
       3.times { @poem_content << markov.generate_1_sentences }
-      @poem_keyword = @poem_content.first.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
+      @poem_keyword = @poem_content.first.downcase.split.max_by(&:length).gsub(/’s|[^a-z\s]/,'')
       @poem_image_url = image_url(@poem_keyword)
       markov.clear!
       session[:ephemeral_poem] = {}

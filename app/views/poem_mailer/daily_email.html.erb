@@ -23,7 +23,7 @@
       </p>
       <% if @user.forecasts.last.created_at > Time.now.beginning_of_day %>
         <p>Here's the weather forecast for <%= @user.location %>: <i><%= @user.forecasts.last.summary %>
-        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.<i></p>
+        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.</i></p>
       <% end %>
       <p>Have a good day,</p>
       <p>PoemToday</p>

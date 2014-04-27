@@ -1,9 +1,10 @@
-#poem-title, #poem-poet, #poem-body  {
-    display: inline-block;
-    margin-left: 100px;
+#poem-title  {
+    display: inline;
 }
 
-#poem-body {}
+#poem-body {
+  display: block;
+}
 
 #keillorbot {
     background: none;
@@ -16,4 +17,13 @@
   font-size: 1.2em;
 }
 
-#poem-image {}
+#poem-image {
+  float: right;
+}
+
+
+@media (min-width: 768px) { 
+  #poem-image {
+  margin-right: 5%;
+  }
+}

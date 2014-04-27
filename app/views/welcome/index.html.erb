@@ -15,11 +15,13 @@
 <h2>Daily Email Algorithm</h2>
 <p class="frontsite">PoemToday also features a daily email option. The app will email you a poem every morning, along with information about why that poem was matched to you on that day. The daily email matching is based on whatever inputs you share with PoemToday. Currently available inputs are first name, birthday, location and Twitter handle. So, for example, if you tell PoemToday your location, it will look up your weather forecast and match words in your location's forecast summary with poems in its database.</p>
 
+<p class="frontsite">Special occasions, like holidays, and New York Times' Most Emailed articles for that day also serve as inputs across all users. See the algorithm Gist below (you may need to refresh your browser).</p>
+
 <div class="code-sample">
 <script src="https://gist.github.com/alexpatriquin/11226505.js"></script>
 </div>
 
-<p class="frontsite">When matching users' keyword sources with poems every morning, PoemToday takes into account where in the poem the keywords were found, as well as the frequency of the word's occurence in English language usage, which is provided via the Wordnik.com API. Extremely high frequency words, such as articles and prepositions, are automatically removed with a high cut-off score. Frequency is like golf, the lower the better. Thus more points are assigned to rare words by subtracting all keyword frequencies from 1000. When applicable, the word "birthday", first names and holiday names are treated as keywords and given a score of 0, so they automatically trump other keyword and sources.</p>
+<p class="frontsite">When matching users' keyword sources with poems every morning, PoemToday takes into account where in the poem the keywords were found, as well as the frequency of the word's occurence in English language usage, which is provided via the Wordnik.com API. Extremely high frequency words, such as articles and prepositions, are automatically removed with a high cut-off score. Frequency is like a golf score, the lower the better. Thus more points are assigned to rare words by subtracting all keyword frequencies from 1000. When applicable, the word "birthday", first names and holiday names are treated as keywords and given a score of 0, so they automatically trump other keyword and sources.</p>
 <p class="frontsite">Daily Email matches are saved on the user's homepage, with details about the match, including links to original keyword source where applicable (eg, with Tweets or New York Times articles). Future development plans include additional user feedback mechanisms for the matching algorithms and a/b testing a Natural Language Generation (NLG) engine against the Markov Chain.</p>
 </div>
 
