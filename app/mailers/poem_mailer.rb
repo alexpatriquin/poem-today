@@ -29,41 +29,20 @@ class PoemMailer < ActionMailer::Base
       when "birthday"
         @summary << "because today's your birthday. Happy birthday!"
       when "holiday"
-        holiday_summary
+        holiday_name = @user_poem.keyword_text.titleize
+        @summary << "because today is #{holiday_name}. Happy #{holiday_name}!"
       when "forecast"
-        forecast_summary
+        @summary << "which appeared in today's forecast for #{@user_poem.keyword_source_id}."
       when "news"
-        news_summary
+        @summary << "which appeared in"
       when "twitter"
-        twitter_summary
+        @summary << "which appeared in"
       end
     end
     user_poem_hash = {}
     user_poem_hash[@user_poem.keyword_source] = @user_poem.keyword_source_id
     summary_hash[@summary] = user_poem_hash
     summary_hash
-  end
-
-  def holiday_summary
-    holiday_name = @user_poem.keyword_text.titleize
-    @summary << "because today is #{holiday_name}. "
-    if Date.today.month = 12 && Date.today.day == 25
-      @summary << "Merry Christmas!"
-    else
-      @summary << "Happy #{holiday_name}!"
-    end
-  end
-
-  def forecast_summary
-    @summary << "which is in today's forecast for #{@user_poem.keyword_source_id}."
-  end
-
-  def news_summary
-    @summary << "which was in"
-  end
-
-  def twitter_summary
-    @summary << "which was in"
   end
 
 end
