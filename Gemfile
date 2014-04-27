@@ -52,6 +52,7 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "pry"
   gem "simplecov", "~> 0.7.1"
+  gem "rails-erd"
 end
 
 gem "binding_of_caller"
