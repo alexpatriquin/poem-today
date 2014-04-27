@@ -1,5 +1,5 @@
-[![](/app/assets/images/logo_small.png "PoemToday logo")](http://poemtoday.com/)
-# PoemToday
+
+# [![](/app/assets/images/logo_small.png "PoemToday logo")](http://poemtoday.com/) PoemToday
 PoemToday is a simple Rails app and algorithm that matches users to poems based on profile info and enables them to create interesting Markov chains by browsing poems.
 
 *Poem Page (with top Flickr photo for referral keyword)*
