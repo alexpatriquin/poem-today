@@ -37,7 +37,7 @@ Continuing development plans include additional user feedback mechanisms for the
 ![](/public/assets/markov_storage.png "Markov Poem Page")
 
 ## Domain Model
-![](/public/assets/erd.pdf "Database Schema")
+![](/public/assets/erd.png "Database Schema")
 
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) &mdash; PoemToday
