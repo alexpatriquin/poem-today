@@ -5,12 +5,12 @@
   </head>
   <body>
 
-      <h4><%= link_to "#{@poem.title}", "#{@poem_url}?keyword=#{@user_poem.keyword_text}"  %></h4>
+      <h4><%= link_to "#{@poem.title}", "http://www.poemtoday.com/poems/#{@poem.id}?keyword=#{@user_poem.keyword_text}"  %></h4>
       <p><%= "by #{@poem.poet}" %></p>
       <p><%= simple_format(@poem.content) %></p>
       <br>
       <br>
-      <p><%= "Good morning, #{@user.first_name}." %></p>
+      <p><%= "Good morning #{@user.first_name}," %></p>
       <p><%= @summary %>
         <% keyword_source_id = @user_poem.keyword_source_id %>
         <% if @user_poem.keyword_source == "news" %>
@@ -18,13 +18,15 @@
           <i><%= link_to article.title, keyword_source_id, target: "_blank"  %></i> in the New York Times.
         <% elsif @user_poem.keyword_source == "twitter" %>
           <% tweet = Tweet.where(:id_str=>keyword_source_id).first %>
-          your tweet, <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>
+          your tweet: <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>.
         <% end %>
       </p>
       <% if @user.forecasts.last.created_at > Time.now.beginning_of_day %>
-        <i>Today's forecast for <%= @user.location %>: <%= @user.forecasts.last.summary %>
-        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.</i>
+        <p>Here's the weather forecast for <%= @user.location %>: <i><%= @user.forecasts.last.summary %>
+        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.<i></p>
       <% end %>
+      <p>Have a good day,</p>
+      <p>PoemToday</p>
 
   </body>
 </html>

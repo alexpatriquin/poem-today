@@ -1,11 +1,10 @@
 class PoemMailer < ActionMailer::Base
-  default from: "PoemToday@poemtoday.com"
+  default from: "hello@poemtoday.com"
 
   def daily_email(user)
     @user = user
     @user_poem = PoemMatcher.new(user).match_poem
     @poem = Poem.find(@user_poem.poem_id)
-    @poem_url = "http://poemtoday.com#{poem_path(@poem)}"
     create_summary_present_tense
 
     mail(to: @user.email, subject: "#{@poem.title}")
@@ -17,7 +16,7 @@ class PoemMailer < ActionMailer::Base
 
   def create_summary_present_tense
     summary_hash = {}
-    @summary = "You were matched to this poem today "
+    @summary = "You were matched to this poem "
 
     if @user_poem.match_type == "random"
       @summary << "with a random word."
