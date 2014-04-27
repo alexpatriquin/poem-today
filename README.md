@@ -26,18 +26,18 @@ Continuing development plans include additional user feedback mechanisms for the
 ## Screenshots
 *Homepage (Signed in)*
 
-[![](/public/assets/homepage_signed_in.png "Homepage (signed in)")]
+![](/public/assets/homepage_signed_in.png "Homepage (signed in)")
 
 *Poem Page (with top Flickr photo for referral keyword)*
 
-[[](/public/assets/poem_with_flickr_kw.png "Poem Page")]
+![](/public/assets/poem_with_flickr_kw.png "Poem Page")]
 
 *Markov Poem Page*
 
 ![](/public/assets/markov_storage.png "Markov Poem Page")
 
 ## Domain Model
-[(/public/assets/rails-erd-schema.jpg "Database Schema")]
+![](/public/assets/rails-erd-schema.jpg "Database Schema")
 
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) &mdash; PoemToday
