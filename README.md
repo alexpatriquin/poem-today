@@ -1,9 +1,8 @@
+[![](/app/assets/images/icon_31093.jpg "PoemToday logo")](http://poemtoday.com/)
 # PoemToday
-
 PoemToday is a simple Rails app and algorithm that matches users to poems based on profile info and enables them to create interesting Markov chains by browsing poems.
 
 ## Random Poem Generator
-
 Each of the 6,000 poems currently on PoemToday actually has a link wrapped around every word in every poem. When a user clicks one of the words, the site initiates a search of its database for the best-matching poem and redirects the user to the top result, alongside with the top image from the Flickr API for that word.
 
 Behind the scenes, PoemToday is storing information about all of the words the user has clicked and the poems the user has visited in a temporary session. When the session has enough data, it statistically generates a completely unique "ephemeral" poem with a statistical process known as a Markov chain.
@@ -11,7 +10,6 @@ Behind the scenes, PoemToday is storing information about all of the words the u
 Markov chains, of course, are a remarkably simple mathematical operation capable of producing uncanny results when modeling human-written texts. In the spirit of the memorylessness of Markov Chains, randomly-generated poems on PoemToday aren't stored. When the user leaves or reloads http://www.poemtoday.com/ephemeral, the session is cleared and your Markov poem is gone.
 
 ## Daily Email Algorithm
-
 PoemToday also features a daily email option. The app will email the user a poem every morning, along with information about why that poem was matched to the user on that day. The daily email matching is based on whatever inputs the user shares with PoemToday. Currently available inputs are first name, birthday, location and Twitter handle. So, for example, if the user tells PoemToday her location, it will look up her weather forecast and match words in her location's forecast summary with poems in its database.
 
 Special occasions, like holidays, and New York Times' Most Emailed articles for that day also serve as special inputs for all users. The scoring section of the algorithm at [app/models/poem_scorer](app/models/poem_scorer.rb) provides a nice overview on how it all works.
@@ -23,23 +21,19 @@ Frequency is like a golf score, the lower the better. Thus more points are assig
 Daily Email matches are saved on the user's homepage, with details about the match, including links to original keyword source where applicable (eg, with Tweets or New York Times articles).
 
 ## Continuing Development
-
 Continuing development plans include additional user feedback mechanisms for the matching algorithms and a/b testing a Natural Language Generation (such as simplenlg) realization engine against the Markov Chain.
 
 ## Screenshots
+Homepage (Signed in)
+[![](/public/assets/homepage_signed_in.png "Homepage (signed in)")](http://poemtoday.com/poems/1823?keyword=grasping)
 
-###Homepage (Signed in)
-[homepage_signed_in](public/assets/homepage_signed_in.png)
+Poem Page (with top Flickr photo for referral keyword)
+[![](/public/assets/poem_with_flickr_kw.png "Poem Page")](http://poemtoday.com/poems/1823?keyword=grasping)
 
-###Poem Page (with top Flickr photo for referral keyword)
-[homepage_signed_in](public/assets/poem_with_flickr_kw.png)
+Markov Poem Page
+[![](/public/assets/markov_storage.png "Markov Poem Page")](http://poemtoday.com/ephemeral)
 
-###Markov Poem Page
-[homepage_signed_in](public/assets/markov_storage.png)
-
-## Schema
-
-Database Schema
+## Domain Model
 [![](/public/assets/rails-erd-schema.jpg "Database Schema")](http://poemtoday.com/about)
 
 ## Built With
