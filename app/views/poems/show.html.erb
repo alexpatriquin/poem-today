@@ -2,7 +2,7 @@
     <%= render 'poem_image' %>
 </div>
 
-<div class="col-md-5 col-md-offset-1">
+<div class="col-md-5 col-md-offset-1 poem">
   <h2 id="poem-title"><%= @poem.title %></h2><%= button_tag fa_icon("volume-up lg"), id: "keillorbot" %>
   <%= content_tag "div", id: "token", data: {token: @token } do %><% end %>
   <%= hidden_field_tag "title", "#{@poem.title}", id: "voice-title" %>
