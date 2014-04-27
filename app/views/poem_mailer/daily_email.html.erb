@@ -13,10 +13,10 @@
       <p><%= "Good morning #{@user.first_name}," %></p>
       <p><%= @summary %>
         <% keyword_source_id = @user_poem.keyword_source_id %>
-        <% if @user_poem.keyword_source == "news" %>
+        <% if @user_poem.keyword_source == :news %>
           <% article = News.where(:url=>keyword_source_id).first %>
           <i><%= link_to article.title, keyword_source_id, target: "_blank"  %></i> in the New York Times.
-        <% elsif @user_poem.keyword_source == "twitter" %>
+        <% elsif @user_poem.keyword_source == :twitter %>
           <% tweet = Tweet.where(:id_str=>keyword_source_id).first %>
           your tweet: <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>.
         <% end %>

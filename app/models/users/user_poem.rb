@@ -11,17 +11,17 @@ class UserPoem < ActiveRecord::Base
 
       self.summary << "with the word \"#{self.keyword_text}\" "
       case self.keyword_source
-      when "first_name"
+      when :first_name
         self.summary << "because that's your name ;)"
-      when "birthday"
+      when :birthday
         self.summary << "because it was your birthday :)"
-      when "holiday"
+      when :holiday
         holiday_summary
-      when "forecast"
+      when :forecast
         forecast_summary
-      when "news"
+      when :news
         news_summary
-      when "twitter"
+      when :twitter
         twitter_summary
       end
     end

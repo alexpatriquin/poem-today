@@ -21,22 +21,22 @@ class PoemMailer < ActionMailer::Base
     if @user_poem.match_type == "random"
       @summary << "with a random word."
     else
-
+    
       @summary << "with the word \"#{@user_poem.keyword_text}\" "
       case @user_poem.keyword_source
-      when "first_name"
+      when :first_name
         @summary << "because that's your name ;)"
-      when "birthday"
+      when :birthday
         @summary << "because today's your birthday. Happy birthday!"
-      when "holiday"
+      when :holiday
         holiday_name = @user_poem.keyword_text.titleize
         @summary << "because today is #{holiday_name}. Happy #{holiday_name}!"
       when "forecast"
-        @summary << "which appeared in today's forecast for #{@user_poem.keyword_source_id}."
-      when "news"
-        @summary << "which appeared in"
-      when "twitter"
-        @summary << "which appeared in"
+        @summary << "which appears in today's forecast."
+      when :news
+        @summary << "which appears in"
+      when :twitter
+        @summary << "which appears in"
       end
     end
     user_poem_hash = {}
