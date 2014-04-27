@@ -1,5 +1,7 @@
 
 # [![](/app/assets/images/logo_small.png "PoemToday logo")](http://poemtoday.com/) PoemToday
+[![Code Climate](https://codeclimate.com/github/AlexPatriquin/poem-today.png)](https://codeclimate.com/github/AlexPatriquin/poem-today)
+
 PoemToday is a simple Rails app and algorithm that matches users to poems based on profile info and enables them to create interesting Markov chains by browsing poems.
 
 *Poem Page (with top Flickr photo for referral keyword)*
