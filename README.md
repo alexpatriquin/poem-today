@@ -2,6 +2,10 @@
 # PoemToday
 PoemToday is a simple Rails app and algorithm that matches users to poems based on profile info and enables them to create interesting Markov chains by browsing poems.
 
+*Poem Page (with top Flickr photo for referral keyword)*
+
+![](/public/assets/poem_with_flickr_kw.png "Poem Page")
+
 ## Random Poem Generator
 Each of the 6,000 poems currently on PoemToday actually has a link wrapped around every word in every poem. When a user clicks one of the words, the site initiates a search of its database for the best-matching poem and redirects the user to the top result, alongside with the top image from the Flickr API for that word.
 
@@ -27,10 +31,6 @@ Continuing development plans include additional user feedback mechanisms for the
 *Homepage (Signed in)*
 
 ![](/public/assets/homepage_signed_in.png "Homepage (signed in)")
-
-*Poem Page (with top Flickr photo for referral keyword)*
-
-![](/public/assets/poem_with_flickr_kw.png "Poem Page")]
 
 *Markov Poem Page*
 
