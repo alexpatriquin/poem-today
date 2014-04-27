@@ -1,40 +1,37 @@
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-10">
+
+
+<div class="col-md-10 col-md-offset-2">
   <h1>Poetry, personalized.</h1>
-  </div>
-</div>
-<div class="row">
-<div class="col-md-2"></div>
-<div class="col-md-4">
-<br><br><br>
-<%= image_tag 'arm.png' %>
-<br><br>
-<p class="frontsite">PoemToday is poetry, personalized. Click on any word in a few <%= link_to "poems", poem_path(rand(6000)), class: "frontsite-link" %> and soon you will generate a unique, completely original, ephemeral poem that sounds as if it were written by a human, but wasn't.</p>
-<p class="frontsite">Also, optionally receive a daily poem via email or tweet that is matched to information, such as your tweets or location, that you care to share. Read more <%= link_to "about it", about_path, class: "frontsite-link" %>.
-</div>
-<div class="col-md-1"></div>
-<div class="col-md-4">
+  <div class="row">
+      <div class="col-md-6">
+        <br><br><br>
+        <%= image_tag 'arm.png' %>
+        <br><br>
+        <p class="frontsite">PoemToday is poetry, personalized. Click on any word in a few <%= link_to "poems", poem_path(rand(6000)), class: "frontsite-link" %> and soon you will generate a unique, completely original, ephemeral poem that sounds as if it were written by a human, but wasn't.</p>
+        <p class="frontsite">Also, optionally receive a daily poem via email or tweet that is matched to information, such as your tweets or location, that you care to share. Read more <%= link_to "about it", about_path, class: "frontsite-link" %>.
+      </div>
+      
+      <div class="col-md-6">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+        
+        <div><%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %></div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+        <div><%= f.label :first_name %><br />
+        <%= f.text_field :first_name %></div>
+
+          <div><%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off" %></div>
+
+          <div><%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+          <br>
+        <div><%= f.submit "Sign up" %></div>
+        <br>
+      <% end %>
+      <%= render "devise/shared/links" %>
+      </div>
   
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
-
-  <div><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></div>
-
-    <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-    <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-    <br>
-  <div><%= f.submit "Sign up" %></div>
-  <br>
-<% end %>
-
-<%= render "devise/shared/links" %>
-</div>
+  </div>
 </div>
