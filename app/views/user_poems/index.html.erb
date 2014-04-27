@@ -6,8 +6,7 @@
       <ul id="daily-matches">
         <% @user_poems_with_summary.each do |ups| %>
           <li>
-            <h4><%= link_to "#{ups[0].title}", poem_path(ups[0].id) %><small><%= " by #{ups[0].poet}" %></small></h4>
-            
+            <h4><%= link_to "#{ups[0].title}", "#{poem_path(ups[0].id)}?keyword=#{@user_poem.keyword_text}" %><small><%= " by #{ups[0].poet}" %></small></h4>
             <p><%= "#{ups[1].keys.pop}" %>
               <% keyword_source = ups[1].values.pop.keys.pop %>
               <% keyword_source_id = ups[1].values.pop.values.pop %>

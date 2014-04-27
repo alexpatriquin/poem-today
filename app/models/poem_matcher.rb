@@ -110,7 +110,7 @@ class PoemMatcher
                            :keyword_source_id   => top_result[:keyword_source_id],
                            :match_type          => top_result[:match_type])
     @user.save
-    Poem.find(top_result[:poem_id])
+    @user.user_poems.last
   end
 
 end

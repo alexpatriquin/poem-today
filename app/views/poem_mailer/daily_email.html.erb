@@ -4,35 +4,27 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <p><%= "Good morning, #{@user.first_name}" %></p>
-      <p></p>
-      <h4><%= @poem.title %></h4>
+
+      <h4><%= link_to "#{@poem.title}", "#{@poem_url}?keyword=#{@user_poem.keyword_text}"  %></h4>
       <p><%= "by #{@poem.poet}" %></p>
       <p><%= simple_format(@poem.content) %></p>
-      <p><%= "And the link... #{@poem_url}?keyword=#{@keyword_text}" %></p>
-
-
-      <p><%= @keyword_text %></p>
-      <p><%= @match_score %></p>
-      <p><%= @match_type %></p>
-      <p><%= @keyword_source %></p>
-      <p><%= @keyword_source_id %></p>
-
+      <br>
+      <br>
+      <p><%= "Good morning, #{@user.first_name}." %></p>
+      <p><%= @summary %>
+        <% keyword_source_id = @user_poem.keyword_source_id %>
+        <% if @user_poem.keyword_source == "news" %>
+          <% article = News.where(:url=>keyword_source_id).first %>
+          <i><%= link_to article.title, keyword_source_id, target: "_blank"  %></i> in the New York Times.
+        <% elsif @user_poem.keyword_source == "twitter" %>
+          <% tweet = Tweet.where(:id_str=>keyword_source_id).first %>
+          your tweet, <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>
+        <% end %>
+      </p>
+      <% if @user.forecasts.last.created_at > Time.now.beginning_of_day %>
+        <i>Today's forecast for <%= @user.location %>: <%= @user.forecasts.last.summary %>
+        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.</i>
+      <% end %>
 
   </body>
 </html>
-
-<!-- 
-  poem title as subject
-  poem title
-  poet
-  poem
-
-  you were matched to this poem today because...
-  weather summar... don't forgot to enjoy / umbrella...
-  oh and merry christmas
-
-
-
-
--->
