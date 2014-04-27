@@ -10,7 +10,7 @@ class PoemMailer < ActionMailer::Base
     mail(to: @user.email, subject: "#{@poem.title}")
 
     if @user.twitter_handle.present?
-      TWITTER_CLIENT.update("Good morning @#{@user.twitter_handle}, here is your poem for today. #{@poem_url}?keyword=#{@user_poem.keyword_text}")
+      TWITTER_CLIENT.update("Good morning @#{@user.twitter_handle}, here is your poem for today. http://www.poemtoday.com/poems/#{@poem.id}?keyword=#{@user_poem.keyword_text}")
     end
   end
 
