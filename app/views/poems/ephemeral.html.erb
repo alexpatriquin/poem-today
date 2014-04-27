@@ -1,5 +1,5 @@
-<div class="col-md-5 col-md-offset-1" id="poem-image">
-  <%= render 'poem_image' %>
+<div id="poem-image">
+    <%= render 'poem_image' %>
 </div>
 
 <div class="col-md-5 col-md-offset-1">
@@ -8,7 +8,7 @@
   <%= hidden_field_tag "title", "#{@poem_title}", id: "voice-title" %>
   <%= hidden_field_tag "poet", "#{@poem_poet}", id: "voice-poet" %>
   <%= hidden_field_tag "content", "#{@poem_content}", id: "voice-content" %>
-  <h5 id="poem-poet">a marhov chain</h5><br><br><br>
+  <h5 id="poem-poet">a marhov chain</h5><br>
 
   <p id="poem-body"><% @poem_content.each do |line| %>
     <% line.split.each do |word| %>
