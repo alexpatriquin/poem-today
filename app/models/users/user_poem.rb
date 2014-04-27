@@ -25,7 +25,6 @@ class UserPoem < ActiveRecord::Base
         twitter_summary
       end
     end
-    binding.pry
     self.save
     self.summary
   end
