@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://alexpatriquin.github.io/poem-today/blog/archives/</loc>
+        <lastmod>2014-05-03T15:53:48-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://alexpatriquin.github.io/poem-today/</loc>
+        <lastmod>2014-05-03T15:53:48-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://alexpatriquin.github.io/poem-today/robots.txt</loc>
+        <lastmod>2014-05-03T15:53:48-04:00</lastmod>
+    </url>
+</urlset>

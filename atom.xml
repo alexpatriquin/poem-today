@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://alexpatriquin.github.io/poem-today/atom.xml" rel="self"/>
+  <link href="http://alexpatriquin.github.io/poem-today/"/>
+  <updated>2014-05-03T16:00:35-04:00</updated>
+  <id>http://alexpatriquin.github.io/poem-today/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
