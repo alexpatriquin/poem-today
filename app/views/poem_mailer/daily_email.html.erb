@@ -21,9 +21,8 @@
           your tweet: <i><%= link_to tweet.text, keyword_source_id, target: "_blank" %></i>.
         <% end %>
       </p>
-      <% if @user.forecasts.last.created_at > Time.now.beginning_of_day %>
-        <p>Here's the weather forecast for <%= @user.location %>: <i><%= @user.forecasts.last.summary %>
-        Min: <%= @user.forecasts.last.min_temp %> F, Max: <%= @user.forecasts.last.max_temp %> F.</i></p>
+      <% if @forecast.present? %>
+        <p><%= "Here's the weather forecast for #{@user.location}: " %><i><%= @forecast %></i><p>
       <% end %>
       <p>Have a good day,</p>
       <p>PoemToday</p>

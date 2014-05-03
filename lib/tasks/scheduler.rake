@@ -10,10 +10,9 @@ namespace :pt do
   task :email_users => [:pt_env] do  
     User.all.each do |u| 
       begin
-        PoemMailer.daily_email(u).deliver 
-        puts "Sent email to #{u.email}"
+        PoemMailer.daily_email(u).deliver
       rescue
-        puts "Couldn't send email to #{u.email}"
+        puts "Couldn't send mail to #{u.email}"
         next
       end
     end

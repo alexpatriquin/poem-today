@@ -6,11 +6,18 @@ class PoemMailer < ActionMailer::Base
     @user_poem = PoemMatcher.new(user).match_poem
     @poem = Poem.find(@user_poem.poem_id)
     create_summary_present_tense
+    create_forecast
 
     mail(to: @user.email, subject: "#{@poem.title}")
 
     if @user.twitter_handle.present?
       TWITTER_CLIENT.update("Good morning @#{@user.twitter_handle}, here is your poem for today. http://www.poemtoday.com/poems/#{@poem.id}?keyword=#{@user_poem.keyword_text}")
+    end
+  end
+
+  def create_forecast
+    if @user.forecasts.present? && (@user.forecasts.last.created_at > Time.now.beginning_of_day)
+      @forecast = "#{@user.forecasts.last.summary} Min: #{@user.forecasts.last.min_temp} F, Max: #{@user.forecasts.last.max_temp} F."
     end
   end
 
