@@ -1,5 +1,15 @@
 ./ngrok 3000
 
+UserPoem.where("created_at >= ?", Time.zone.now.beginning_of_day).count
+UserPoem.where("created_at >= ?", Time.zone.now.beginning_of_day)
+date = Date.today - 1
+UserPoem.where(:created_at => (date.beginning_of_day..date.end_of_day))
+
+pp UserPoem.where("created_at >= ?", Time.zone.now.beginning_of_day).pluck(:id, :user_id, :poem_id, :match_type, :keyword_text)
+
+
+
+
 
 
 
