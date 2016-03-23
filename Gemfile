@@ -62,7 +62,7 @@ end
 
 gem 'figaro'
 gem 'whenever'
-gem 'mandrill-api'
+gem 'postmark-rails'
 gem 'forecast_io'
 gem 'geocoder'
 gem 'json'

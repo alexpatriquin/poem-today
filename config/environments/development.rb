@@ -16,16 +16,8 @@ PoemToday::Application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address:              'smtp.mandrillapp.com',
-  port:                 587,
-  enable_starttls_auto: true,
-  user_name:            ENV["MANDRILL_USERNAME"],
-  password:             ENV["MANDRILL_PASSWORD"],
-  authentication:       'plain',
-  domain:               'poemtoday.herokuapp.com'
-  }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_token => "83c317ab-0921-404f-a6db-9a960784c7b7" }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

@@ -65,16 +65,8 @@ PoemToday::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address:              'smtp.mandrillapp.com',
-  port:                 587,
-  enable_starttls_auto: true,
-  user_name:            ENV["MANDRILL_USERNAME"],
-  password:             ENV["MANDRILL_PASSWORD"],
-  authentication:       'plain',
-  domain:               'localhost:3000'
-  }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_token => "83c317ab-0921-404f-a6db-9a960784c7b7" }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).

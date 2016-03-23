@@ -9,11 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require font-awesome
+ *= require bootstrap-responsive.css
  *= require_self
  *= require_tree .
  */
 
 @import "bootstrap";
+@import "bootstrap-responsive";
 $font-stack: "Cardo";
 $maroon: #90220D;
 

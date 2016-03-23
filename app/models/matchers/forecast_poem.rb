@@ -18,6 +18,7 @@ class ForecastPoem
   def call_forecastio_api(lat,long)
     uri = "https://api.forecast.io/forecast/#{ENV["FORECAST_IO_APIKEY"]}/#{lat},#{long}"
     parsed_uri = URI.parse(uri)
+    binding.pry
     response = Net::HTTP.get_response(parsed_uri)
     @payload = JSON.parse(response.body)
   end
